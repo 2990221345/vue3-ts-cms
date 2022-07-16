@@ -11,6 +11,15 @@ Vue Language Features (Volar)
 Git History Diff
 ```
 
+### git commit standard
+
+package.json 配置了 commit 命令 执行 cz
+
+```
+git add .
+npm run commit
+```
+
 ## Project setup
 
 ```
@@ -33,15 +42,6 @@ npm run build
 
 ```
 npm run lint
-```
-
-### git commit standard
-
-package.json 配置了 commit 命令 执行 cz
-
-```
-git add .
-npm run commit
 ```
 
 ### Customize configuration
