@@ -5,3 +5,9 @@ import registerElement from '@/global/register-element'
 export function registerApp(app: App): void {
   registerElement(app) //调用函数注册
 }
+// 通过app.use() 默认传入install(app)
+export function golbalRegisterApp(app: App): void {
+  console.log('glcal', app)
+
+  registerElement(app) //调用函数注册
+}
