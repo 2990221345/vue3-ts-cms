@@ -4,6 +4,8 @@
     <img src="@/assets/logo.png" alt="" />
     <router-link to="/login">login</router-link>
     <router-link to="/main">main</router-link>
+    <el-button type="primary">Primary</el-button>
+    <el-button>login</el-button>
     <router-view></router-view>
   </div>
 </template>
