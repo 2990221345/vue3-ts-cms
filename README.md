@@ -1,5 +1,16 @@
 # vue3-ts-cms
 
+## Develop configuration Vs Code tools
+
+```
+EditorConfig for VS Code
+PrettierConfig for VS Code
+ESLint
+Vue VSCode Snippets
+Vue Language Features (Volar)
+Git History Diff
+```
+
 ## Project setup
 
 ```
