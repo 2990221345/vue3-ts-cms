@@ -1,5 +1,5 @@
 //引入vue里面的App类型
-import { App } from 'vue'
+import type { App } from 'vue'
 // element-icon图标的全局应用
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 export default function (app: App): void {

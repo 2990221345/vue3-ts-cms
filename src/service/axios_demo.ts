@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios'
 // axios.request({})
 // axios配置信息
 axios.defaults.baseURL = 'http://httpbin.org'
+
 axios.defaults.timeout = 5000
 axios
   .get('http://123.207.32.32:8000/home/multidata')
@@ -52,4 +53,10 @@ axios
 // })
 
 // axios的拦截器
-// axios.interceptors.request.use()
+axios.interceptors.request.use((config) => {
+  config.url = '/post'
+  return config
+})
+axios.interceptors.response.use((config) => {
+  return config
+})

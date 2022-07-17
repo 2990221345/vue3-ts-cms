@@ -6,3 +6,4 @@ declare module '*.vue' {
 }
 
 declare let $store: any
+declare const VUE_APP_BASE_URL: string
