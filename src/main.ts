@@ -5,6 +5,7 @@ import { golbalRegisterApp } from '@/global'
 import Hyrequest from '@/service/index'
 import rootApp from './App.vue'
 import router from '@/router/index'
+import 'element-plus/dist/index.css' //引用全局样式表
 import store from '@/store'
 const app = createApp(rootApp)
 // element-plus 按需导入 - 采用自动导入插件 unplugin-auto-import,unplugin-vue-components
@@ -20,23 +21,20 @@ app.use(golbalRegisterApp) //默认传入 install(app)
 app.mount('#app')
 
 console.log('VUE_APP_BASE_URL', process.env.VUE_APP_BASE_URL)
-Hyrequest.request({
+
+interface DataType {
+  data: any
+  returnCode: string
+  success: string
+}
+Hyrequest.request<DataType>({
   url: '/home/multidata',
-  method: 'GET',
-  interceptors: {
-    requestInterceptor: (config) => {
-      console.log('单独请求')
-      return config
-    },
-    responseInterceptor: (res) => {
-      console.log('guliguli')
+  method: 'GET'
+}).then((res) => {
+  //
+  console.log('then')
 
-      return res
-    }
-  }
+  console.log(res.data)
+  console.log(res.returnCode)
+  console.log(res.success)
 })
-// .then((res) => {
-//   console.log(34793749347)
-
-//   console.log(res)
-// })
