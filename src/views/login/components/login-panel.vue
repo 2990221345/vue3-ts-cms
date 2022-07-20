@@ -9,9 +9,8 @@
             <span>账号登录</span>
           </span>
         </template>
-        <login-account></login-account>
+        <login-account ref="accountRef"></login-account>
       </el-tab-pane>
-
       <el-tab-pane>
         <template #label>
           <span class="custom-tabs-label">
@@ -22,12 +21,26 @@
         <login-phone></login-phone>
       </el-tab-pane>
     </el-tabs>
+    <div class="account-control">
+      <el-checkbox v-model="keepPassword">记住密码</el-checkbox>
+      <el-link type="primary">忘记密码</el-link>
+    </div>
+    <el-button @click="handelLoginClick" type="primary" class="login-btn"
+      >立即登录</el-button
+    >
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import LoginAccount from '@/views/login/components/login-account.vue'
 import LoginPhone from '@/views/login/components/login-phone.vue'
+const keepPassword = ref(true)
+const accountRef = ref<InstanceType<typeof LoginAccount>>()
+const handelLoginClick = () => {
+  console.log('登录', accountRef)
+  accountRef.value?.loginAction()
+}
 </script>
 
 <style lang="less" scoped>
@@ -43,6 +56,14 @@ import LoginPhone from '@/views/login/components/login-phone.vue'
   }
   .title {
     text-align: center;
+  }
+  .account-control {
+    display: flex;
+    justify-content: space-between;
+  }
+  .login-btn {
+    margin-top: 10px;
+    width: 100%;
   }
 }
 </style>
