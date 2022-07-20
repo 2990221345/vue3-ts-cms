@@ -30,7 +30,7 @@ const ruleForm = reactive({
 })
 const loginAction = () => {
   if (!ruleFormRef.value) return
-  ruleFormRef.value.validate((valid) => {
+  ruleFormRef.value?.validate((valid) => {
     if (!valid) return
     console.log('校验通过')
   })

@@ -38,7 +38,6 @@ import LoginPhone from '@/views/login/components/login-phone.vue'
 const keepPassword = ref(true)
 const accountRef = ref<InstanceType<typeof LoginAccount>>()
 const handelLoginClick = () => {
-  console.log('登录', accountRef)
   accountRef.value?.loginAction()
 }
 </script>
