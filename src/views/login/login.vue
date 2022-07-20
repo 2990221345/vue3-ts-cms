@@ -1,10 +1,21 @@
 <template>
-  <div>Login</div>
+  <div class="login">
+    <LoginPanel></LoginPanel>
+  </div>
 </template>
-<script>
-// import { ElButton } from 'element-plus'
-export default {
-  // components: { ElButton }
-}
+
+<script setup lang="ts">
+import LoginPanel from '@/views/login/components/login-panel.vue'
 </script>
-<style scoped></style>
+
+<style lang="less" scoped>
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  // background: url('@/src/assets/img/login-bg.svg');
+  background: url('./../../assets/img/login-bg.svg');
+}
+</style>
