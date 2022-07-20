@@ -1,6 +1,10 @@
 import { createApp } from 'vue'
 // import { registerApp } from '@/global'
 import { golbalRegisterApp } from '@/global'
+
+// css 样式重置
+import 'normalize.css'
+import '@/assets/css/index.css'
 // import '@/service/axios_demo'
 import Hyrequest from '@/service/index'
 import rootApp from './App.vue'
