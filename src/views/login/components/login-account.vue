@@ -33,6 +33,7 @@ const loginAction = () => {
   ruleFormRef.value?.validate((valid) => {
     if (!valid) return
     console.log('校验通过')
+    console.log(valid)
   })
 }
 defineExpose({
