@@ -7,6 +7,7 @@ const path = require('path')
 module.exports = {
   publicPath: './',
   outputDir: 'docs',
+  productionSourceMap: false,
   // 配置方式二：和webpack属性完全一致，最后会进行合并
   // configureWebpack: {
   //   resolve: {
@@ -16,6 +17,7 @@ module.exports = {
   //   }
   // }
   configureWebpack: {
+    // production
     plugins: [
       AutoImport({
         resolvers: [ElementPlusResolver()]
