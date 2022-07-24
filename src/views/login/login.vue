@@ -15,7 +15,6 @@ import LoginPanel from '@/views/login/components/login-panel.vue'
   align-items: center;
   width: 100%;
   height: 100%;
-  // background: url('@/src/assets/img/login-bg.svg');
   background: url('./../../assets/img/login-bg.svg');
 }
 </style>
