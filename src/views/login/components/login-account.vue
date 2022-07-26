@@ -20,9 +20,11 @@
 
 <script setup lang="ts">
 import { reactive, ref, defineExpose } from 'vue'
+import { useStore } from 'vuex'
 import type { FormInstance } from 'element-plus'
 import LocalCache from '@/utils/cache'
 import { rules } from '@/views/login/config/account-config'
+const store = useStore()
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const accountForm = reactive({
@@ -45,6 +47,9 @@ const loginAction = (keepPassword: boolean) => {
       LocalCache.deleteCache('password')
     }
     // 开始进行登录验证
+    console.log(store)
+
+    store.dispatch('login/accountLoginAction', { ...accountForm })
   })
 }
 defineExpose({

@@ -5,8 +5,6 @@ import { golbalRegisterApp } from '@/global'
 // css 样式重置
 import 'normalize.css'
 import '@/assets/css/index.css'
-// import '@/service/axios_demo'
-import Hyrequest from '@/service/index'
 import rootApp from './App.vue'
 import router from '@/router/index'
 import 'element-plus/dist/index.css' //引用全局样式表
@@ -23,22 +21,3 @@ app.use(store)
 // registerApp(app) //icon图标的全局应用  element-plus/icons-vue
 app.use(golbalRegisterApp) //默认传入 install(app)
 app.mount('#app')
-
-console.log('VUE_APP_BASE_URL', process.env.VUE_APP_BASE_URL)
-
-interface DataType {
-  data: any
-  returnCode: string
-  success: string
-}
-// Hyrequest.request<DataType>({
-//   url: '/home/multidata',
-//   method: 'GET'
-// }).then((res) => {
-//   //
-//   console.log('then')
-
-//   console.log(res.data)
-//   console.log(res.returnCode)
-//   console.log(res.success)
-// })
