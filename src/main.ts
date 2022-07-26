@@ -31,14 +31,14 @@ interface DataType {
   returnCode: string
   success: string
 }
-Hyrequest.request<DataType>({
-  url: '/home/multidata',
-  method: 'GET'
-}).then((res) => {
-  //
-  console.log('then')
+// Hyrequest.request<DataType>({
+//   url: '/home/multidata',
+//   method: 'GET'
+// }).then((res) => {
+//   //
+//   console.log('then')
 
-  console.log(res.data)
-  console.log(res.returnCode)
-  console.log(res.success)
-})
+//   console.log(res.data)
+//   console.log(res.returnCode)
+//   console.log(res.success)
+// })
