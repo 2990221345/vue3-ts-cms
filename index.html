@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>点击事件</button>
+  <script>
+    let btn = document.querySelector('button')
+    // 1.为什么这种写法防抖会失效
+    btn.addEventListener('click', function () {
+      fn2()
+    })
+    const fn2 = debound(sayHi, 1000)
+    // 2.这种才正常
+    // btn.onclick = debound(sayHi, 1000)
+    function sayHi () {
+      console.log('125372573');
+    }
+    function debound (fn, await) {
+      let timer = null //借助闭包
+      return function () {
+        if (timer) {
+          clearTimeout(timer)
+        }
+        timer = setTimeout(fn, await) // 简化写法
+      }
+    }
+  </script>
+</body>
+
+</html>
