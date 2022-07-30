@@ -33,13 +33,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import utils from '@/utils/utils'
 import LoginAccount from '@/views/login/components/login-account.vue'
 import LoginPhone from '@/views/login/components/login-phone.vue'
 const keepPassword = ref(true)
+const debounce = utils.debounce
 const accountRef = ref<InstanceType<typeof LoginAccount>>()
-const handelLoginClick = () => {
+// 登录添加防抖操作 避免多次发送请求
+const handelLoginClick = debounce(() => {
   accountRef.value?.loginAction(keepPassword.value)
-}
+}, 1000)
 </script>
 
 <style lang="less" scoped>
