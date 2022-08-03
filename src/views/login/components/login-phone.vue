@@ -8,8 +8,8 @@
       :size="formSize"
       status-icon
     >
-      <el-form-item label="手机号" prop="username">
-        <el-input v-model="phoneForm.username" />
+      <el-form-item label="手机号" prop="name">
+        <el-input v-model="phoneForm.name" />
       </el-form-item>
       <el-form-item label="验证码" prop="password">
         <div class="get-code">
@@ -30,7 +30,7 @@ import { rules } from '@/views/login/config/account-config'
 const formSize = ref('default')
 const phoneFormRef = ref<FormInstance>()
 const phoneForm = reactive({
-  username: '',
+  name: '',
   password: ''
 })
 </script>

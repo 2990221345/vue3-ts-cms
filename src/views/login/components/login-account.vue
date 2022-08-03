@@ -8,8 +8,8 @@
       :size="formSize"
       status-icon
     >
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="accountForm.username" />
+      <el-form-item label="账号" prop="name">
+        <el-input v-model="accountForm.name" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input type="password" v-model="accountForm.password" />
@@ -28,7 +28,7 @@ const store = useStore()
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const accountForm = reactive({
-  username: LocalCache.getCache('name') ?? '',
+  name: LocalCache.getCache('name') ?? '',
   password: LocalCache.getCache('password') ?? ''
 })
 const loginAction = (keepPassword: boolean) => {
@@ -39,16 +39,14 @@ const loginAction = (keepPassword: boolean) => {
     //  判断是否记住密码
     if (keepPassword) {
       // 本地缓存
-      LocalCache.setCache('name', accountForm.username)
+      LocalCache.setCache('name', accountForm.name)
       LocalCache.setCache('password', accountForm.password)
-      // window.localStorage.setItem('username')
+      // window.localStorage.setItem('name')
     } else {
       LocalCache.deleteCache('name')
       LocalCache.deleteCache('password')
     }
     // 开始进行登录验证
-    console.log(store)
-
     store.dispatch('login/accountLoginAction', { ...accountForm })
   })
 }

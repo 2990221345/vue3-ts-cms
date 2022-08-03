@@ -1,21 +1,30 @@
 // service统一出口
-import HYRequest from '@/service/request/index'
+import HYRequest from './request'
+
+import localCache from '@/utils/cache'
+
 const hyRequest = new HYRequest({
-  baseURL: process.env.VUE_APP_BASE_URL,
+  baseURL: '/api',
   timeout: 10000,
   interceptors: {
-    requestInterceptor: (config) => {
+    requestInterceptor: (config: any) => {
+      // 携带token的拦截
+      const token = localCache.getCache('token')
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
       return err
     },
-    responseInterceptor: (config) => {
-      return config
+    responseInterceptor: (res) => {
+      return res
     },
     responseInterceptorCatch: (err) => {
       return err
     }
   }
 })
+
 export default hyRequest

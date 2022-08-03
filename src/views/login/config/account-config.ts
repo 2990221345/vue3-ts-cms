@@ -2,7 +2,7 @@ import { reactive } from 'vue'
 import type { FormRules } from 'element-plus'
 
 export const rules = reactive<FormRules>({
-  username: [
+  name: [
     { required: true, message: '请输入账号', trigger: 'blur' },
     {
       pattern: /^[a-z0-9]{5,10}$/,
