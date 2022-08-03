@@ -65,10 +65,10 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userInfo = localCache.getCache('userInfo')
       if (userInfo) {
         commit('changeUserInfo', userInfo)
-        const userMenus = localCache.getCache('userMenus')
-        if (userMenus) {
-          commit('changeUserMenus', userMenus)
-        }
+      }
+      const userMenus = localCache.getCache('userMenus')
+      if (userMenus) {
+        commit('changeUserMenus', userMenus)
       }
     }
   }
