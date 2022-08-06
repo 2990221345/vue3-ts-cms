@@ -1,12 +1,12 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="210px">
-        <nav-menu />
+      <el-aside :width="isCollapse ? '60px ' : '210px'">
+        <nav-menu :collapse="isCollapse" />
       </el-aside>
       <el-container class="page">
         <el-header class="page-header">
-          <nav-header />
+          <nav-header @foldChange="handleFoldChage" />
         </el-header>
         <el-main class="page-content">Main</el-main>
       </el-container>
@@ -15,8 +15,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import NavMenu from '@/components/nav-menu'
 import NavHeader from '@/components/nav-header'
+const isCollapse = ref(false)
+const handleFoldChage = (value: boolean) => {
+  isCollapse.value = value
+}
 </script>
 
 <style lang="less" scoped>

@@ -2,10 +2,11 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
-      <span class="title">Vue3+Ts</span>
+      <span class="title" v-if="!props.collapse">Vue3+Ts</span>
     </div>
     <el-menu
       default-active="1-106"
+      :collapse="props.collapse"
       :unique-opened="true"
       class="el-menu-vertical-demo"
       text-color="#b7bdc3"
@@ -19,13 +20,13 @@
             <template #title>
               <el-icon><Checked /></el-icon>
               <i v-if="item.icon" :class="item.icon"></i>
-              <span>{{ item.name }}{{ item.sort }}</span>
+              <span v-if="!props.collapse">{{ item.name }}{{ item.sort }}</span>
             </template>
             <!-- 二级菜单 -->
             <template v-for="subItem in item.children" :key="subItem.id">
               <el-menu-item :index="item.sort + '-' + subItem.sort">
                 <i v-if="subItem.icon" :class="subItem.icon"></i>
-                <span
+                <span v-if="!props.collapse"
                   >{{ subItem.name }}{{ item.type + '-' + subItem.sort }}</span
                 >
               </el-menu-item>
@@ -45,10 +46,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, defineProps } from 'vue'
+
 // import { useStore } from 'vuex'
 import { useStore } from '@/store'
 const store = useStore()
+const props = defineProps({
+  collapse: {
+    type: Boolean,
+    default: () => false
+  }
+})
 const userMenus = computed(() => store.state.login.userMenus)
 </script>
 
