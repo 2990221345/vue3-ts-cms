@@ -41,7 +41,7 @@ const testArr = [
 
 var str = 'abbcccccddddddeeeeeee12345ccc'
 console.log(str[1])
-function getStrMaxCount1 (str) {
+function getStrMaxCount1(str) {
   var resultStr = ''
   var resultCount = 0
   var i = 0
