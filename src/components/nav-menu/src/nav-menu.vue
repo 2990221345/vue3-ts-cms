@@ -20,13 +20,16 @@
             <template #title>
               <el-icon><Checked /></el-icon>
               <i v-if="item.icon" :class="item.icon"></i>
-              <span v-if="!props.collapse">{{ item.name }}{{ item.sort }}</span>
+              <span>{{ item.name }}{{ item.sort }}</span>
             </template>
             <!-- 二级菜单 -->
             <template v-for="subItem in item.children" :key="subItem.id">
-              <el-menu-item :index="item.sort + '-' + subItem.sort">
+              <el-menu-item
+                :index="item.sort + '-' + subItem.sort"
+                @click="handleMenuItemClick(subItem)"
+              >
                 <i v-if="subItem.icon" :class="subItem.icon"></i>
-                <span v-if="!props.collapse"
+                <span
                   >{{ subItem.name }}{{ item.type + '-' + subItem.sort }}</span
                 >
               </el-menu-item>
@@ -50,6 +53,7 @@ import { computed, defineProps } from 'vue'
 
 // import { useStore } from 'vuex'
 import { useStore } from '@/store'
+import router from '@/router'
 const store = useStore()
 const props = defineProps({
   collapse: {
@@ -58,6 +62,13 @@ const props = defineProps({
   }
 })
 const userMenus = computed(() => store.state.login.userMenus)
+
+const handleMenuItemClick = (item: any) => {
+  console.log(item)
+  router.push({
+    path: item.url
+  })
+}
 </script>
 
 <style lang="less" scoped>
