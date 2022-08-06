@@ -29,9 +29,7 @@
                 @click="handleMenuItemClick(subItem)"
               >
                 <i v-if="subItem.icon" :class="subItem.icon"></i>
-                <span
-                  >{{ subItem.name }}{{ item.type + '-' + subItem.sort }}</span
-                >
+                <span>{{ subItem.name }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
