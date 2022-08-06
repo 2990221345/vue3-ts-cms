@@ -1,6 +1,6 @@
 <template>
   <div class="not-found">
-    <h2>not-found</h2>
+    <h2>not-found 找不到该路径</h2>
   </div>
 </template>
 
