@@ -46,7 +46,7 @@ const loginModule: Module<ILoginState, IRootState> = {
         router.addRoute('main', route) //动态添加路由
         // 添加一条新的路由记录作为现有路由的子路由。如果路由有一个 name，并且已经有一个与之名字相同的路由，它会先删除之前的路由
       })
-      console.log('最终路由表', router.options.routes)
+      // console.log('最终路由表', router.options.routes)
       // router.options.routes[2].children = routes
     }
   },

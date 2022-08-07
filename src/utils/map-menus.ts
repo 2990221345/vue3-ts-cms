@@ -12,8 +12,8 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
     const route = require('../router/main' + key.split('.')[1]) //拼接路径 引入ts文件 splice切割 .ts可以省略
     allRoutes.push(route.default)
   })
-  console.log('所有的', allRoutes)
-  console.log('后台获取的用户表', userMenus)
+  // console.log('所有的', allRoutes)
+  // console.log('后台获取的用户表', userMenus)
 
   // 2.根据菜单获取需要添加的routes
   // userMenus:
