@@ -7,12 +7,13 @@ import {
 } from '@/service/login/ index'
 
 import localCache from '@/utils/cache'
-
+import { mapMenusToRoutes } from '@/utils/map-menus'
+import {} from 'vue-router'
+import router from '@/router'
 // type
 import { IAccount } from '@/service/login/type'
 import { ILoginState } from '@/store/login/type'
 import { IRootState } from '@/store/type'
-import router from '@/router'
 
 const loginModule: Module<ILoginState, IRootState> = {
   // 模块化给个命名空间 true
@@ -34,6 +35,19 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+      // userMenus => routes //过滤路由表
+      console.log('注册动态路由')
+
+      // userMenus => routes
+      const routes = mapMenusToRoutes(userMenus)
+
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route) //动态添加路由
+        // 添加一条新的路由记录作为现有路由的子路由。如果路由有一个 name，并且已经有一个与之名字相同的路由，它会先删除之前的路由
+      })
+      console.log('最终路由表', router.options.routes)
+      // router.options.routes[2].children = routes
     }
   },
   actions: {

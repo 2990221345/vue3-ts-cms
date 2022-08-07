@@ -48,11 +48,11 @@
 
 <script lang="ts" setup>
 import { computed, defineProps } from 'vue'
-
+import { useRouter } from 'vue-router'
 // import { useStore } from 'vuex'
 import { useStore } from '@/store'
-import router from '@/router'
 const store = useStore()
+const router = useRouter()
 const props = defineProps({
   collapse: {
     type: Boolean,
@@ -64,7 +64,7 @@ const userMenus = computed(() => store.state.login.userMenus)
 const handleMenuItemClick = (item: any) => {
   console.log(item)
   router.push({
-    path: item.url
+    path: item.url ?? '/not-found'
   })
 }
 </script>
