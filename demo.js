@@ -22,7 +22,7 @@ const result = arr.reduce((item, next) => {
   }
   return item
 }, [])
-console.log(result)
+// console.log(result)
 
 const testArr = [
   { a: 1, b: 2, c: 3 },
@@ -33,13 +33,32 @@ const testArr = [
 ]
 // 数组处理
 
-console.log(testArr)
-
-// 用js编写一个方法，输出字符串中连续最多的字符及次数
+// console.log(testArr)
 
 var str = 'abbcccccddddddeeeeeee12345ccc'
 console.log(str[1])
-function getStrMaxCount(str) {
+// 计算字符串中出现最多的次数
+const newstr1 = str.split('')
+const result23 = newstr1.reduce((item, next) => {
+  if (item[next]) {
+    item[next]++
+  } else {
+    item[next] = 1
+  }
+  return item
+}, {})
+let keyStr = ''
+let max = 0
+for (let key in result23) {
+  if (result23[key] >= max) {
+    max = result23[key]
+    keyStr = key
+  }
+}
+// 用js编写一个方法，输出字符串中连续最多的字符及次数
+
+console.log('result23', keyStr, max)
+function getStrMaxCount (str) {
   var resultStr = ''
   var resultCount = 0
   var i = 0
@@ -63,7 +82,7 @@ function getStrMaxCount(str) {
     str: resultStr
   }
 }
-console.log(getStrMaxCount(str))
+// console.log(getStrMaxCount(str))
 
 // str = str.split('')
 // let newStr = {}
