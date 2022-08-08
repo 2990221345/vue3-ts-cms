@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <el-form label-width="120px">
+  <div class="hy-form">
+    <el-form :label-width="label">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
-          <el-col :span="8">
-            <el-form-item :label="item.label">
+          <el-col v-bind="colLayout">
+            <!-- <el-col :span="8"> -->
+            <el-form-item :label="item.label" :style="itemStyle">
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >
@@ -45,8 +46,36 @@ const props = defineProps({
   formItems: {
     type: Array as PropType<IFormItem[]>,
     default: () => []
+  },
+  label: {
+    type: String,
+    default: '100px'
+  },
+  itemStyle: {
+    type: Object,
+    default: () => ({ padding: '10px 40px' })
+  },
+  colLayout: {
+    type: Object,
+    default: () => {
+      return {
+        xl: 6,
+        lg: 8,
+        md: 12,
+        sm: 24,
+        xs: 24
+      }
+    }
   }
 })
+console.log(props.formItems)
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.hy-form {
+  padding-top: 22px;
+  .form-item {
+    padding: 5px 30px;
+  }
+}
+</style>
