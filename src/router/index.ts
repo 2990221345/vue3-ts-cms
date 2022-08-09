@@ -43,5 +43,7 @@ router.beforeEach((to) => {
   // const routes = mapMenusToRoutes(userMenus)
 
   // console.log(to)
+  console.log(router.getRoutes())
+  console.log(to)
 })
 export default router

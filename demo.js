@@ -58,7 +58,7 @@ for (let key in result23) {
 // 用js编写一个方法，输出字符串中连续最多的字符及次数
 
 console.log('result23', keyStr, max)
-function getStrMaxCount (str) {
+function getStrMaxCount(str) {
   var resultStr = ''
   var resultCount = 0
   var i = 0
