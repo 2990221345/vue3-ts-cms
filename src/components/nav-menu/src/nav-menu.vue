@@ -5,7 +5,7 @@
       <span class="title" v-if="!props.collapse">Vue3+Ts</span>
     </div>
     <el-menu
-      default-active="1-106"
+      :default-active="defaultValue"
       :collapse="props.collapse"
       :unique-opened="true"
       class="el-menu-vertical-demo"
@@ -16,7 +16,7 @@
       <template v-for="item in userMenus" :key="item.id">
         <!-- 一级菜单 -->
         <template v-if="item.type === 1">
-          <el-sub-menu :index="item.sort + ''">
+          <el-sub-menu :index="item.id + ''">
             <template #title>
               <el-icon><Checked /></el-icon>
               <i v-if="item.icon" :class="item.icon"></i>
@@ -25,7 +25,7 @@
             <!-- 二级菜单 -->
             <template v-for="subItem in item.children" :key="subItem.id">
               <el-menu-item
-                :index="item.sort + '-' + subItem.sort"
+                :index="subItem.id + ''"
                 @click="handleMenuItemClick(subItem)"
               >
                 <i v-if="subItem.icon" :class="subItem.icon"></i>
@@ -47,20 +47,28 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, defineProps, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { pathMapToMenu } from '@/utils/map-menus'
 // import { useStore } from 'vuex'
 import { useStore } from '@/store'
+// router
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
+const currentPath: string = route.path
+console.log(currentPath)
+//data  computed返回到是ref对象
+const userMenus = computed(() => store.state.login.userMenus)
+const menu = pathMapToMenu(userMenus.value, currentPath)
+const defaultValue = ref(menu.id + '')
+
 const props = defineProps({
   collapse: {
     type: Boolean,
     default: () => false
   }
 })
-const userMenus = computed(() => store.state.login.userMenus)
-
 const handleMenuItemClick = (item: any) => {
   router.push({
     path: item.url ?? '/not-found'

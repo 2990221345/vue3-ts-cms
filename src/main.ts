@@ -12,7 +12,7 @@ import store from '@/store'
 import { setupStore } from '@/store' //页面刷新时 重新读取localStoreage
 const app = createApp(rootApp)
 // vuex 持久化
-setupStore() //先匹配路由再注册 router
+setupStore() //应该先匹配路由再注册 router
 // element-plus 按需导入 - 采用自动导入插件 unplugin-auto-import,unplugin-vue-components
 // element-icon 按需导入模式需要 注册全局才能使用 详见global
 app.use(router)

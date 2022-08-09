@@ -1,5 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 
+let firstMenu: any = null
+
 export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
@@ -26,6 +28,9 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
         const route = allRoutes.find((route) => route.path === menu.url) //从本地所有的权限路由表中 筛选对应权限 符合返回本地路由表的配置{}
         // 符合的话直接push进数组  通过addRoute('main',route) 添加进main的子菜单
         if (route) routes.push(route)
+        if (!firstMenu) {
+          firstMenu = menu
+        }
       } else {
         _recurseGetRoute(menu.children)
       }
@@ -33,7 +38,23 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   }
 
   _recurseGetRoute(userMenus)
-  console.log('处理完成', routes)
+  // console.log('处理完成', routes)
 
   return routes
 }
+
+export function pathMapToMenu(userMenus: any, currentPath: string): any {
+  console.log('userMenus', userMenus)
+  for (const menu of userMenus) {
+    if (menu.type == 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMenu) {
+        return findMenu
+      }
+    } else if (menu.type == 2 && menu.url === currentPath) {
+      return menu
+    }
+  }
+}
+
+export { firstMenu }

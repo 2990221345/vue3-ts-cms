@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+
 import localCache from '@/utils/cache'
+import { firstMenu } from '@/utils/map-menus'
 // import { mapMenusToRoutes } from '@/utils/map-menus'
 // import store from '@/store'
 
@@ -38,12 +40,10 @@ router.beforeEach((to) => {
       return '/login'
     }
   }
-  // userMenus => routes
-  // const userMenus = (store.state as any).login.userMenus
-  // const routes = mapMenusToRoutes(userMenus)
-
-  // console.log(to)
-  console.log(router.getRoutes())
-  console.log(to)
+  // 解决进入main报错
+  if (to.path === '/main') {
+    console.log(firstMenu)
+    return firstMenu.url
+  }
 })
 export default router

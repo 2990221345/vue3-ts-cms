@@ -5,19 +5,20 @@
       <Expand v-show="!ifFold" />
     </el-icon>
     <div class="content">
-      <div>面包屑</div>
-      <div>
-        <userInfoVue></userInfoVue>
-      </div>
+      <HyBreadcrumb :breadcrumb="breadcrumb"></HyBreadcrumb>
+      <userInfoVue></userInfoVue>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, defineEmits } from 'vue'
+import HyBreadcrumb, { IBreadumb } from '@/base-ui/breadcrumb/index'
 import userInfoVue from './user-info.vue'
 const emit = defineEmits(['foldChange'])
 const ifFold = ref(false)
+// 面包屑数据
+const breadcrumb: IBreadumb[] = []
 const handleFoldClick = () => {
   ifFold.value = !ifFold.value
   emit('foldChange', ifFold.value)

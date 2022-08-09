@@ -68,7 +68,7 @@ const props = defineProps({
     }
   }
 })
-console.log(props.formItems)
+// console.log(props.formItems)
 </script>
 
 <style lang="less" scoped>
