@@ -59,13 +59,14 @@ export function pathMapToMenu(
   for (const menu of userMenus) {
     if (menu.type == 1) {
       const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      //判断返回值是否有值 return 最终结果
       if (findMenu) {
         breadcrumb?.push({ name: menu.name })
         breadcrumb?.push({ name: findMenu.name })
         return findMenu
       }
     } else if (menu.type == 2 && menu.url === currentPath) {
-      return menu
+      return menu //这里返回对应 findMenu
     }
   }
 }

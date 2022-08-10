@@ -13,10 +13,15 @@
                   style="width: 100%"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
+                  v-model="formData[`${item.field}`]"
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
-                <el-select :placeholder="item.placeholder" style="width: 100%">
+                <el-select
+                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                  v-model="formData[`${item.field}`]"
+                >
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
@@ -27,6 +32,7 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
+                  v-model="formData[`${item.field}`]"
                   v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                 >
@@ -40,9 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType } from 'vue'
+import { defineProps, PropType, defineEmits, ref, watch } from 'vue'
 import { IFormItem } from '../types/index'
 const props = defineProps({
+  // 父组件使用v-model 绑定的是modelValue的值
+  modelValue: {
+    type: Object,
+    required: true
+  },
   formItems: {
     type: Array as PropType<IFormItem[]>,
     default: () => []
@@ -68,7 +79,20 @@ const props = defineProps({
     }
   }
 })
-// console.log(props.formItems)
+
+const emit = defineEmits(['update:modelValue'])
+// 这里使用浅拷贝 父组件的数据 通过watch监听emit派发
+const formData = ref({ ...props.modelValue })
+watch(
+  formData,
+  (newValue) => {
+    console.log(newValue)
+    emit('update:modelValue', newValue)
+  },
+  {
+    deep: true
+  }
+)
 </script>
 
 <style lang="less" scoped>

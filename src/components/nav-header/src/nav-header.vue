@@ -16,7 +16,7 @@ import { ref, defineEmits, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import userInfoVue from './user-info.vue'
-import HyBreadcrumb, { IBreadumb } from '@/base-ui/breadcrumb/index'
+import HyBreadcrumb from '@/base-ui/breadcrumb/index'
 import { pathMapBreadcrumbs } from '@/utils/map-menus'
 const emit = defineEmits(['foldChange'])
 const ifFold = ref(false)
