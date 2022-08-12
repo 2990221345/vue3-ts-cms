@@ -30,7 +30,6 @@ const breadcrumb = computed(() => {
   return pathMapBreadcrumbs(userMenus, currentPath)
 })
 
-// console.log(breadcrumb)
 const handleFoldClick = () => {
   ifFold.value = !ifFold.value
   emit('foldChange', ifFold.value)
