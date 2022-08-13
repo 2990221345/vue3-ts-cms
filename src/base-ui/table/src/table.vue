@@ -24,6 +24,10 @@ const props = defineProps({
   propList: {
     type: Array,
     required: true
+  },
+  showIndexColumn: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

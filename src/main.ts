@@ -24,4 +24,5 @@ app.use(store)
  *  */
 // registerApp(app) //icon图标的全局应用  element-plus/icons-vue
 app.use(golbalRegisterApp) //默认传入 install(app)
+
 app.mount('#app')
