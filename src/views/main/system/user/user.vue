@@ -1,31 +1,29 @@
 <template>
   <div class="user">
-    <div class="search">
-      <HyForm v-bind="SearchFromConfig" v-model="formData">
-        <template #header>
-          <h1>高级检索</h1>
-        </template>
-        <template #footer>
-          <el-button>重置</el-button>
-          <el-button>搜索</el-button>
-        </template>
-      </HyForm>
-      <!--  :col-layout="colLayout"-->
+    <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch>
+    <div class="content">
+      {{ userList }}
+      {{ userCount }}
     </div>
-    <div class="content">内容</div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import HyForm from '@/base-ui/form'
+import { computed } from 'vue'
+import PageSearch from '@/components/page-search'
 import { SearchFromConfig } from './config/serch.config'
-const formData = ref({
-  id: '',
-  name: '',
-  password: '',
-  createTime: ''
+import { useStore } from 'vuex'
+const store = useStore()
+store.dispatch('system/getPageListAction', {
+  pageUrl: '/users/list',
+  queryInfo: {
+    offset: 0,
+    size: 10
+  }
 })
+
+const userList = computed(() => store.state.system.userList)
+const userCount = computed(() => store.state.system.userCount)
 </script>
 
 <style lang="less" scoped></style>
