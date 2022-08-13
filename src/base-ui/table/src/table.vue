@@ -22,7 +22,7 @@ const props = defineProps({
     required: true
   },
   propList: {
-    type: Array,
+    type: Array as any,
     required: true
   },
   showIndexColumn: {

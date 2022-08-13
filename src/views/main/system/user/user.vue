@@ -42,7 +42,13 @@ store.dispatch('system/getPageListAction', {
 
 const userList = computed(() => store.state.system.userList)
 const userCount = computed(() => store.state.system.userCount)
-const propList = [
+interface IPropsList {
+  prop: string
+  label: string
+  minWidth?: string
+  slotName?: string
+}
+const propList: IPropsList[] = [
   { prop: 'name', label: '用户名', minWidth: '100' },
   { prop: 'realname', label: '真实姓名', minWidth: '100' },
   { prop: 'cellphone', label: '电话号码', minWidth: '120' },
