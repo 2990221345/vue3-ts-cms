@@ -4,7 +4,7 @@ export const contentTableConfig = {
   showIndexColumn: true,
   propList: [
     { prop: 'name', label: '用户名', minWidth: '100' },
-    { prop: 'realname', label: '真实姓名', minWidth: '100' },
+    { prop: 'intro', label: '权限介绍', minWidth: '100' },
     { prop: 'cellphone', label: '电话号码', minWidth: '120' },
     { prop: 'enable', label: '状态', minWidth: '100', slotName: 'status' },
     {
