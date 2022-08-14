@@ -10,6 +10,9 @@
         :showSelectColumn="showSelectColumn"
         @selectionChange="selectionChange"
       >
+        <template #headerHandler>
+          <el-button type="primary">新建用户</el-button>
+        </template>
         <template #status="scope">
           <el-button
             plain
@@ -26,13 +29,31 @@
         </template>
         <template #handler="scope">
           <div class="handle-btns">
-            <el-button size="small" @click="editBtn(scope.row.id)"
+            <el-button size="small" @click="editBtn(scope.row.id)" icon="Edit"
               >编辑</el-button
             >
-            <el-button size="small" @click="deleteBtn(scope.row.id)"
+            <el-button
+              size="small"
+              @click="deleteBtn(scope.row.id)"
+              icon="Delete"
               >删除</el-button
             >
           </div>
+        </template>
+        <!-- 分页器 -->
+        <template #footer>
+          <el-pagination
+            v-model:currentPage="currentPage4"
+            v-model:page-size="pageSize4"
+            :page-sizes="[100, 200, 300, 400]"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="userCount"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          />
         </template>
       </HyTable>
       <!--
@@ -42,7 +63,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import PageSearch from '@/components/page-search'
 import HyTable from '@/base-ui/table'
 import { SearchFromConfig } from './config/serch.config'
@@ -59,7 +80,7 @@ store.dispatch('system/getPageListAction', {
 })
 
 const userList = computed(() => store.state.system.userList)
-// const userCount = computed(() => store.state.system.userCount)
+const userCount = computed(() => store.state.system.userCount)
 interface IPropsList {
   prop: string
   label: string
@@ -86,14 +107,27 @@ const propList: IPropsList[] = [
     minWidth: '250',
     slotName: 'updateAt'
   },
-  { prop: '', label: '操作', minWidth: '120', slotName: 'handler' }
+  { prop: '', label: '操作', minWidth: '200', slotName: 'handler' }
 ]
-const title = '我是标题'
+const title = '用户列表'
+
+const currentPage4 = ref(1)
+const pageSize4 = ref(10)
+const small = ref(false)
+const background = ref(false)
+const disabled = ref(false)
+
 const selectionChange = (val: any) => {
   const reslut = val.map((item: any) => item.id)
   console.log(reslut)
 }
+const handleSizeChange = (val: any) => {
+  console.log(val)
+}
 
+const handleCurrentChange = (val: any) => {
+  console.log(val)
+}
 // 编辑 删除
 const editBtn = (id: number) => {
   console.log(id)

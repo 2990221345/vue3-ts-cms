@@ -73,10 +73,10 @@ const handleSelectionChange = (val: any) => {
 </script>
 
 <style lang="less" scoped>
-s .header {
+.header {
   display: flex;
   height: 45px;
-  padding: 0 50px;
+  // padding: 0 50px;
   justify-content: space-between;
   align-items: center;
   .title {
@@ -86,5 +86,10 @@ s .header {
   .handler {
     align-items: center;
   }
+}
+.footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: end;
 }
 </style>
