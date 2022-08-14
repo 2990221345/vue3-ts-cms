@@ -24,7 +24,7 @@ import { contentTableConfig } from './config/content.config'
 
 const store = useStore()
 store.dispatch('system/getPageListAction', {
-  pageUrl: '/users/list',
+  pageName: 'user',
   queryInfo: {
     offset: 0,
     size: 10

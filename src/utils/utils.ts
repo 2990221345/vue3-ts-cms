@@ -12,5 +12,9 @@ class utils {
       timer = setTimeout(fn, delay)
     }
   }
+  // 首字母转成大写
+  titleCase(str: string) {
+    return str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()
+  }
 }
 export default new utils()

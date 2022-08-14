@@ -3,13 +3,16 @@ import { IRootState } from '@/store/type'
 import { ISystemState } from './types'
 
 import { getPageListData } from '@/service/main/system/system'
+import utils from '@/utils/utils'
 const systemModule: Module<ISystemState, IRootState> = {
   // 模块化给个命名空间 true
   namespaced: true,
   state() {
     return {
       userList: [],
-      userCount: 0
+      userCount: 0,
+      roleList: [],
+      roleCount: 0
     }
   },
   mutations: {
@@ -18,18 +21,30 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeUserCount(state, userCount: number) {
       state.userCount = userCount
+    },
+    changeRoleList(state, roleList: any[]) {
+      state.roleList = roleList
+    },
+    changRoleCount(state, roleCount: number) {
+      state.roleCount = roleCount
     }
   },
   actions: {
     async getPageListAction({ commit }, payload: any) {
-      const pageRestult = await getPageListData(
-        payload.pageUrl,
-        payload.queryInfo
-      )
+      let pageUrl = ''
+      switch (payload.pageName) {
+        case 'user':
+          pageUrl = '/users/list'
+          break
+        case 'role':
+          pageUrl = '/role/list'
+          break
+      }
+      const pageRestult = await getPageListData(pageUrl, payload.queryInfo)
       const { list, totalCount } = pageRestult.data
-
-      commit('changeUserList', list)
-      commit('changeUserCount', totalCount)
+      console.log(utils.titleCase(payload.pageName))
+      commit(`change${utils.titleCase(payload.pageName)}List`, list)
+      commit(`change${utils.titleCase(payload.pageName)}Count`, totalCount)
     }
   }
 }
