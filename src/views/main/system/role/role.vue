@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <!-- <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch> -->
+    <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch>
     <PageContent :contentTableConfig="contentTableConfig"></PageContent>
     <div class="content">
       <!--
@@ -13,14 +13,14 @@
 import { useStore } from 'vuex'
 
 // 页面配置
-// import PageSearch from '@/components/page-search'
+import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
-// import { SearchFromConfig } from './config/serch.config'
+import { SearchFromConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
 
 const store = useStore()
 store.dispatch('system/getPageListAction', {
-  pageName: 'user',
+  pageName: 'role',
   queryInfo: {
     offset: 0,
     size: 10
