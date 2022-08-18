@@ -1,7 +1,10 @@
 <template>
   <div class="user">
     <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch>
-    <PageContent :contentTableConfig="contentTableConfig"></PageContent>
+    <PageContent
+      :contentTableConfig="contentTableConfig"
+      listType="roleList"
+    ></PageContent>
     <div class="content">
       <!--
       <el-pagination layout="prev, pager, next" :total="userCount" /> -->

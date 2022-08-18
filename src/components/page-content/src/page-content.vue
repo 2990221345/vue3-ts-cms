@@ -62,10 +62,14 @@ const props = defineProps({
   contentTableConfig: {
     type: Object,
     required: true
+  },
+  listType: {
+    type: String,
+    default: () => ''
   }
 })
 const store = useStore()
-const userList = computed(() => store.state.system.userList)
+const userList = computed(() => store.state.system[props.listType])
 // const userList = computed(() => store.state.system.roleList)
 const userCount = computed(() => store.state.system.userCount)
 
