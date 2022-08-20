@@ -96,7 +96,9 @@ const dataList = computed(() => {
   return store.getters['system/pageListData'](props.pageName)
 })
 // const userList = computed(() => store.state.system.roleList)
-const dataCount = computed(() => store.state.system.userCount)
+const dataCount = computed(() => {
+  return store.getters['system/pageListData'](props.pageName)
+})
 
 const currentPage4 = ref(1)
 const pageSize4 = ref(10)
