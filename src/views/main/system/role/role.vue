@@ -3,7 +3,7 @@
     <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch>
     <PageContent
       :contentTableConfig="contentTableConfig"
-      listType="roleList"
+      pageName="role"
     ></PageContent>
     <div class="content">
       <!--

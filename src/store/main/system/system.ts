@@ -25,8 +25,20 @@ const systemModule: Module<ISystemState, IRootState> = {
     changeRoleList(state, roleList: any[]) {
       state.roleList = roleList
     },
-    changRoleCount(state, roleCount: number) {
+    changeRoleCount(state, roleCount: number) {
       state.roleCount = roleCount
+    }
+  },
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`] ?? []
+      }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
+      }
     }
   },
   actions: {
@@ -42,7 +54,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       }
       const pageRestult = await getPageListData(pageUrl, payload.queryInfo)
       const { list, totalCount } = pageRestult.data
-      console.log(utils.titleCase(payload.pageName))
+      // console.log(utils.titleCase(payload.pageName))
       commit(`change${utils.titleCase(payload.pageName)}List`, list)
       commit(`change${utils.titleCase(payload.pageName)}Count`, totalCount)
     }

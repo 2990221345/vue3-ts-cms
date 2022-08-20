@@ -1,13 +1,15 @@
 <template>
   <div class="page-content">
     <HyTable
-      :listData="userList"
+      :listData="dataList"
       v-bind="props.contentTableConfig"
       @selectionChange="selectionChange"
     >
+      <!-- hander中插槽 -->
       <template #headerHandler>
         <el-button type="primary">新建用户</el-button>
       </template>
+      <!-- 状态插槽 -->
       <template #status="scope">
         <el-button
           plain
@@ -16,6 +18,7 @@
           >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
         >
       </template>
+      <!--  -->
       <template #createAt="scope">
         <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
       </template>
@@ -42,7 +45,7 @@
           :disabled="disabled"
           :background="background"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="userCount"
+          :total="dataCount"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
@@ -63,15 +66,17 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  listType: {
+  pageName: {
     type: String,
-    default: () => ''
+    required: true
   }
 })
 const store = useStore()
-const userList = computed(() => store.state.system[props.listType])
+const dataList = computed(() => {
+  return store.getters['system/pageListData'](props.pageName)
+})
 // const userList = computed(() => store.state.system.roleList)
-const userCount = computed(() => store.state.system.userCount)
+const dataCount = computed(() => store.state.system.userCount)
 
 const currentPage4 = ref(1)
 const pageSize4 = ref(10)
