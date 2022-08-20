@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, defineEmits, ref, watch } from 'vue'
+import { defineProps, PropType, defineEmits, ref, watch, computed } from 'vue'
 import { IFormItem } from '../types/index'
 const props = defineProps({
   // 父组件使用v-model 绑定的是modelValue的值
@@ -90,9 +90,16 @@ const emit = defineEmits(['update:modelValue'])
 // 这里使用浅拷贝 父组件的数据 通过watch监听emit派发
 const formData = ref({ ...props.modelValue })
 watch(
+  () => props.modelValue,
+  () => {
+    // console.log('modelValue', newValue)
+    formData.value = { ...props.modelValue }
+  }
+)
+watch(
   formData,
   (newValue) => {
-    console.log(newValue)
+    // console.log(newValue)
     emit('update:modelValue', newValue)
   },
   {

@@ -6,7 +6,7 @@
       </template>
       <template #footer>
         <div class="handle-btns">
-          <el-button icon="Refresh">重置</el-button>
+          <el-button icon="Refresh" @click="handleResetClick">重置</el-button>
           <el-button type="primary" icon="Search">搜索</el-button>
         </div>
       </template>
@@ -23,12 +23,20 @@ const props = defineProps({
     required: true
   }
 })
-const formData = ref({
-  id: '',
-  name: '',
-  password: '',
-  createTime: ''
-})
+// 动态读取key 双向绑定
+const formItems = props.SearchFromConfig?.formItems ?? []
+const formOriginData: any = {}
+for (const item of formItems) {
+  formOriginData[item.field] = ''
+}
+const formData = ref({ ...formOriginData })
+
+// 用户点击了重置
+const handleResetClick = () => {
+  console.log('点击了重置')
+  formData.value = formOriginData
+  console.log(formData)
+}
 </script>
 
 <style lang="less" scoped>
