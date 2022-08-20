@@ -7,7 +7,9 @@
       <template #footer>
         <div class="handle-btns">
           <el-button icon="Refresh" @click="handleResetClick">重置</el-button>
-          <el-button type="primary" icon="Search">搜索</el-button>
+          <el-button type="primary" icon="Search" @click="hanleQueryClick"
+            >搜索</el-button
+          >
         </div>
       </template>
     </HyForm>
@@ -15,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, defineEmits } from 'vue'
 import HyForm from '@/base-ui/form'
 const props = defineProps({
   SearchFromConfig: {
@@ -23,6 +25,7 @@ const props = defineProps({
     required: true
   }
 })
+const emit = defineEmits(['resetBtnClick', 'queryBtnClick'])
 // 动态读取key 双向绑定
 const formItems = props.SearchFromConfig?.formItems ?? []
 const formOriginData: any = {}
@@ -31,12 +34,18 @@ for (const item of formItems) {
 }
 const formData = ref({ ...formOriginData })
 
-// 用户点击了重置
+// 重置
 const handleResetClick = () => {
   // for (const key in formOriginData) {
   //   formData.value[`${key}`] = formOriginData[key]
   // }
   formData.value = formOriginData
+  emit('resetBtnClick')
+}
+
+// 搜索
+const hanleQueryClick = () => {
+  emit('queryBtnClick', formData.value)
 }
 </script>
 

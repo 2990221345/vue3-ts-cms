@@ -1,7 +1,12 @@
 <template>
   <div class="user">
-    <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch>
+    <PageSearch
+      :SearchFromConfig="SearchFromConfig"
+      @resetBtnClick="handleResetClick"
+      @queryBtnClick="handleQueryClick"
+    ></PageSearch>
     <PageContent
+      ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="user"
     ></PageContent>
@@ -17,8 +22,9 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useStore } from 'vuex'
-
+import { usePageSearch } from '@/hooks/usePageSearch'
 // 页面配置
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -33,6 +39,8 @@ store.dispatch('system/getPageListAction', {
     size: 10
   }
 })
+// 执行hook
+const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 </script>
 
 <style lang="less" scoped></style>

@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed, ref } from 'vue'
+import { defineProps, defineExpose, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 import { ElMessageBox, ElMessage } from 'element-plus'
@@ -71,7 +71,27 @@ const props = defineProps({
     required: true
   }
 })
+
 const store = useStore()
+
+// 发送网络请求
+const getPageData = (queryInfo: any = {}) => {
+  console.log(queryInfo)
+  store.dispatch('system/getPageListAction', {
+    pageName: props.pageName,
+    queryInfo: {
+      offset: 0,
+      size: 10,
+      ...queryInfo
+    }
+  })
+}
+getPageData()
+// 把方法暴露出去 父组件可通过ref调用
+defineExpose({
+  getPageData
+})
+// 从vuex中获取数据
 const dataList = computed(() => {
   return store.getters['system/pageListData'](props.pageName)
 })

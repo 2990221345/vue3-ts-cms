@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, defineEmits, ref, watch, computed } from 'vue'
+import { defineProps, PropType, defineEmits } from 'vue'
 import { IFormItem } from '../types/index'
 const props = defineProps({
   // 父组件使用v-model 绑定的是modelValue的值
