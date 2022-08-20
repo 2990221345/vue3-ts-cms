@@ -16,14 +16,15 @@
                   style="width: 100%"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
                   :placeholder="item.placeholder"
                   style="width: 100%"
-                  v-model="formData[`${item.field}`]"
+                  @model-value="modelValue[`${item.field}`]"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -35,7 +36,7 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
-                  v-model="formData[`${item.field}`]"
+                  @model-value="modelValue[`${item.field}`]"
                   v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                 >
@@ -88,24 +89,23 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 // 这里使用浅拷贝 父组件的数据 通过watch监听emit派发
-const formData = ref({ ...props.modelValue })
-watch(
-  () => props.modelValue,
-  () => {
-    // console.log('modelValue', newValue)
-    formData.value = { ...props.modelValue }
-  }
-)
-watch(
-  formData,
-  (newValue) => {
-    // console.log(newValue)
-    emit('update:modelValue', newValue)
-  },
-  {
-    deep: true
-  }
-)
+// const formData = ref({ ...props.modelValue })
+
+// watch(
+//   formData,
+//   (newValue) => {
+//     // console.log(newValue)
+//     emit('update:modelValue', newValue)
+//   },
+//   {
+//     deep: true
+//   }
+// )
+
+// 事件触发
+const handleValueChange = (value: any, field: string) => {
+  emit('update:modelValue', { ...props.modelValue, [field]: value })
+}
 </script>
 
 <style lang="less" scoped>

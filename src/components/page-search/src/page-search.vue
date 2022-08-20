@@ -33,9 +33,10 @@ const formData = ref({ ...formOriginData })
 
 // 用户点击了重置
 const handleResetClick = () => {
-  console.log('点击了重置')
+  // for (const key in formOriginData) {
+  //   formData.value[`${key}`] = formOriginData[key]
+  // }
   formData.value = formOriginData
-  console.log(formData)
 }
 </script>
 
