@@ -121,6 +121,9 @@ const debounce = (func, delay) => {
     }, delay)
   }
 }
+debounce(() => {
+  console.log(12)
+}, 100)
 // 实现节流函数
 const throttle = (func, wait = 50) => {
   let lastTime = 0
