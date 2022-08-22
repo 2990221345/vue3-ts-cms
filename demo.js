@@ -82,7 +82,7 @@ function getStrMaxCount (str) {
     str: resultStr
   }
 }
-// console.log(getStrMaxCount(str))
+console.log(getStrMaxCount(str))
 
 // str = str.split('')
 // let newStr = {}
