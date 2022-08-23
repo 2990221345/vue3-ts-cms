@@ -2,8 +2,10 @@
   <div class="page-content">
     <HyTable
       :listData="dataList"
+      :listCount="dataCount"
       v-bind="props.contentTableConfig"
       @selectionChange="selectionChange"
+      v-model:page="pageInfo"
     >
       <!-- hander中插槽 -->
       <template #headerHandler>
@@ -36,26 +38,13 @@
         </div>
       </template>
       <!-- 分页器 -->
-      <template #footer>
-        <el-pagination
-          v-model:currentPage="currentPage4"
-          v-model:page-size="pageSize4"
-          :page-sizes="[100, 200, 300, 400]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="dataCount"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </template>
+      <template #footer> </template>
     </HyTable>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineExpose, computed, ref } from 'vue'
+import { defineProps, defineExpose, computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import { ElMessageBox, ElMessage } from 'element-plus'
@@ -73,15 +62,17 @@ const props = defineProps({
 })
 
 const store = useStore()
-
+// 双向绑定pageInfo
+const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+watch(pageInfo, () => getPageData())
 // 发送网络请求
 const getPageData = (queryInfo: any = {}) => {
-  console.log(queryInfo)
+  // console.log(queryInfo)
   store.dispatch('system/getPageListAction', {
     pageName: props.pageName,
     queryInfo: {
-      offset: 0,
-      size: 10,
+      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+      size: pageInfo.value.pageSize,
       ...queryInfo
     }
   })
@@ -97,25 +88,12 @@ const dataList = computed(() => {
 })
 // const userList = computed(() => store.state.system.roleList)
 const dataCount = computed(() => {
-  return store.getters['system/pageListData'](props.pageName)
+  return store.getters['system/pageListCount'](props.pageName)
 })
-
-const currentPage4 = ref(1)
-const pageSize4 = ref(10)
-const small = ref(false)
-const background = ref(false)
-const disabled = ref(false)
 
 const selectionChange = (val: any) => {
   const reslut = val.map((item: any) => item.id)
   console.log(reslut)
-}
-const handleSizeChange = (val: any) => {
-  console.log(val)
-}
-
-const handleCurrentChange = (val: any) => {
-  console.log(val)
 }
 // 编辑 删除
 const editBtn = (id: number) => {
