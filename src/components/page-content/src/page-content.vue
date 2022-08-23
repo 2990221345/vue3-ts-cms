@@ -37,6 +37,15 @@
           >
         </div>
       </template>
+      <template #image="scope">
+        <el-image
+          style="width: 100px; height: 100px"
+          :src="scope.row.imgUrl"
+          :preview-src-list="[scope.row.imgUrl]"
+          preview-teleported
+          fit="cover"
+        />
+      </template>
       <!-- 分页器 -->
       <template #footer> </template>
     </HyTable>

@@ -33,7 +33,7 @@ const testArr = [
 ]
 // 数组处理
 
-// console.log(testArr)
+console.log(testArr)
 
 var str = 'abbcccccddddddeeeeeee12345ccc'
 console.log(str[1])
