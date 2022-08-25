@@ -44,7 +44,7 @@
         #[item.slotName]="scope"
       >
         <template v-if="item.slotName">
-          <slot :name="item.slotName" :row="scope"></slot>
+          <slot :name="item.slotName" :row="scope.row"></slot>
         </template>
       </template>
     </HyTable>
@@ -106,9 +106,9 @@ const otherPropsSlots = props.contentTableConfig?.propList.filter(
     if (item.slotName === 'createAt') return false
     if (item.slotName === 'updateAt') return false
     if (item.slotName === 'handler') return false
+    return true
   }
 )
-console.log('otherPropsSlots', otherPropsSlots)
 const selectionChange = (val: any) => {
   const reslut = val.map((item: any) => item.id)
   console.log(reslut)
