@@ -37,17 +37,16 @@
           >
         </div>
       </template>
-      <template #image="scope">
-        <el-image
-          style="width: 100px; height: 100px"
-          :src="scope.row.imgUrl"
-          :preview-src-list="[scope.row.imgUrl]"
-          preview-teleported
-          fit="cover"
-        />
+      <!-- 动态插槽 -->
+      <template
+        v-for="item in otherPropsSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope"></slot>
+        </template>
       </template>
-      <!-- 分页器 -->
-      <template #footer> </template>
     </HyTable>
   </div>
 </template>
@@ -71,10 +70,10 @@ const props = defineProps({
 })
 
 const store = useStore()
-// 双向绑定pageInfo
+// 1.双向绑定pageInfo
 const pageInfo = ref({ currentPage: 0, pageSize: 10 })
 watch(pageInfo, () => getPageData())
-// 发送网络请求
+// 2.发送网络请求
 const getPageData = (queryInfo: any = {}) => {
   // console.log(queryInfo)
   store.dispatch('system/getPageListAction', {
@@ -91,7 +90,7 @@ getPageData()
 defineExpose({
   getPageData
 })
-// 从vuex中获取数据
+// 3.从vuex中获取数据
 const dataList = computed(() => {
   return store.getters['system/pageListData'](props.pageName)
 })
@@ -100,6 +99,16 @@ const dataCount = computed(() => {
   return store.getters['system/pageListCount'](props.pageName)
 })
 
+// 4.获取其他的动态插槽名称
+const otherPropsSlots = props.contentTableConfig?.propList.filter(
+  (item: any) => {
+    if (item.slotName === 'status') return false
+    if (item.slotName === 'createAt') return false
+    if (item.slotName === 'updateAt') return false
+    if (item.slotName === 'handler') return false
+  }
+)
+console.log('otherPropsSlots', otherPropsSlots)
 const selectionChange = (val: any) => {
   const reslut = val.map((item: any) => item.id)
   console.log(reslut)

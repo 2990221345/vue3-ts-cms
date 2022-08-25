@@ -10,9 +10,15 @@
       :contentTableConfig="contentTableConfig"
       pageName="goods"
     >
-      <!-- <template #imgUrl="scope">
-        {{ scope.row }}
-      </template> -->
+      <template #image="scope">
+        <el-image
+          style="width: 100px; height: 100px"
+          :src="scope.row.imgUrl"
+          :preview-src-list="[scope.row.imgUrl]"
+          preview-teleported
+          fit="cover"
+        />
+      </template>
     </PageContent>
     <div class="content"></div>
   </div>
