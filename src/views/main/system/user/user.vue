@@ -9,7 +9,17 @@
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="user"
-    ></PageContent>
+    >
+      <!-- 状态插槽 -->
+      <template #status="scope">
+        <el-button
+          plain
+          size="small"
+          :type="scope.row.enable ? 'success' : 'danger'"
+          >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+        >
+      </template>
+    </PageContent>
     <div class="content">
       <!-- :title="title"
         :propList="propList"

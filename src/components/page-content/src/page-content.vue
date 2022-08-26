@@ -11,15 +11,6 @@
       <template #headerHandler>
         <el-button type="primary">新建用户</el-button>
       </template>
-      <!-- 状态插槽 -->
-      <template #status="scope">
-        <el-button
-          plain
-          size="small"
-          :type="scope.row.enable ? 'success' : 'danger'"
-          >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
-        >
-      </template>
       <!--  -->
       <template #createAt="scope">
         <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
@@ -102,7 +93,7 @@ const dataCount = computed(() => {
 // 4.获取其他的动态插槽名称
 const otherPropsSlots = props.contentTableConfig?.propList.filter(
   (item: any) => {
-    if (item.slotName === 'status') return false
+    // if (item.slotName === 'status') return false
     if (item.slotName === 'createAt') return false
     if (item.slotName === 'updateAt') return false
     if (item.slotName === 'handler') return false

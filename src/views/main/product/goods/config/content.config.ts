@@ -4,7 +4,12 @@ export const contentTableConfig = {
   showIndexColumn: true,
   propList: [
     { prop: 'name', label: '商品名称', minWidth: '100' },
-    { prop: 'oldPrice', label: '原价格', minWidth: '100' },
+    {
+      prop: 'oldPrice',
+      label: '原价格',
+      minWidth: '100',
+      slotName: 'oldPrice'
+    },
     { prop: 'newPrice', label: '新价格', minWidth: '80' },
     { prop: 'desc', label: '商品描述', minWidth: '100', slotName: 'desc' },
     { prop: 'status', label: '状态', minWidth: '100', slotName: 'status' },

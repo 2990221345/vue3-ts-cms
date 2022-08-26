@@ -12,6 +12,8 @@
       :data="props.listData"
       border
       style="width: 100%"
+      row-key="id"
+      :tree-props="{ children: 'children', hasChildren: 'children' }"
       @selection-change="handleSelectionChange"
     >
       <el-table-column

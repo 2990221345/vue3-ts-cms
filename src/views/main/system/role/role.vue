@@ -1,10 +1,17 @@
 <template>
   <div class="user">
     <PageSearch :SearchFromConfig="SearchFromConfig"></PageSearch>
-    <PageContent
-      :contentTableConfig="contentTableConfig"
-      pageName="role"
-    ></PageContent>
+    <PageContent :contentTableConfig="contentTableConfig" pageName="role">
+      <!-- 状态插槽 -->
+      <template #status="scope">
+        <el-button
+          plain
+          size="small"
+          :type="scope.row.enable ? 'success' : 'danger'"
+          >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+        >
+      </template>
+    </PageContent>
     <div class="content">
       <!--
       <el-pagination layout="prev, pager, next" :total="userCount" /> -->

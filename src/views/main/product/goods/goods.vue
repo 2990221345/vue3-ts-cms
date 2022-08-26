@@ -19,6 +19,17 @@
           fit="cover"
         />
       </template>
+      <template #oldPrice="scope">
+        {{ '¥' + scope.row.oldPrice }}
+      </template>
+      <template #status="scope">
+        <el-button
+          plain
+          size="small"
+          :type="scope.row.status ? 'success' : 'danger'"
+          >{{ scope.row.status ? '启用' : '禁用' }}</el-button
+        >
+      </template>
     </PageContent>
     <div class="content"></div>
   </div>
