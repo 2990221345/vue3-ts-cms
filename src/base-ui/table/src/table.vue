@@ -37,7 +37,7 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <el-pagination
         v-model:currentPage="page.currentPage"
         v-model:page-size="page.pageSize"
@@ -89,6 +89,10 @@ const props = defineProps({
   childrenProps: {
     type: Object,
     default: () => ({})
+  },
+  showFooter: {
+    type: Boolean,
+    default: () => true
   }
 })
 const emit = defineEmits(['selectionChange', 'update:page'])
