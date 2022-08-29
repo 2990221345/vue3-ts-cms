@@ -12,9 +12,8 @@
       :data="props.listData"
       border
       style="width: 100%"
-      row-key="id"
-      :tree-props="{ children: 'children', hasChildren: 'children' }"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectColumn"
@@ -86,6 +85,10 @@ const props = defineProps({
   page: {
     type: Object,
     default: () => ({ currentPage: 0, pageSize: 10 })
+  },
+  childrenProps: {
+    type: Object,
+    default: () => ({})
   }
 })
 const emit = defineEmits(['selectionChange', 'update:page'])

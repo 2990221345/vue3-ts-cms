@@ -20,14 +20,6 @@
         >
       </template>
     </PageContent>
-    <div class="content">
-      <!-- :title="title"
-        :propList="propList"
-        :showIndexColumn="showIndexColumn"
-        :showSelectColumn="showSelectColumn" -->
-      <!--
-      <el-pagination layout="prev, pager, next" :total="menuCount" /> -->
-    </div>
   </div>
 </template>
 
