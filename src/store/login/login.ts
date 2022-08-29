@@ -7,7 +7,7 @@ import {
 } from '@/service/login/ index'
 
 import localCache from '@/utils/cache'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import { mapMenusToRoutes, mapMenusToPermission } from '@/utils/map-menus'
 import {} from 'vue-router'
 import router from '@/router'
 // type
@@ -22,7 +22,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   getters: {},
@@ -48,6 +49,11 @@ const loginModule: Module<ILoginState, IRootState> = {
       })
       // console.log('最终路由表', router.options.routes)
       // router.options.routes[2].children = routes
+
+      // 获取用户按钮权限
+      const permissions = mapMenusToPermission(userMenus)
+      state.permissions = permissions
+      console.log('permissions', permissions)
     }
   },
   actions: {

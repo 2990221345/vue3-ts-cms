@@ -71,4 +71,22 @@ export function pathMapToMenu(
   }
 }
 
+export function mapMenusToPermission(userMenus: any[]) {
+  const permissions: string[] = []
+  // 递归遍历
+  const _recurseGetpermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetpermission(menu.children ?? [])
+      } else {
+        if (menu.type === 3) {
+          permissions.push(menu.permission)
+        }
+      }
+    }
+  }
+  _recurseGetpermission(userMenus)
+  return permissions
+}
+
 export { firstMenu }
