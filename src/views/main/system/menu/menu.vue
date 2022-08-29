@@ -38,7 +38,7 @@ import { usePageSearch } from '@/hooks/usePageSearch'
 // 页面配置
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
-import { SearchFromConfig } from './config/content.config'
+import { SearchFromConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
 
 const store = useStore()
