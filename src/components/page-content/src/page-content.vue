@@ -74,18 +74,18 @@ const store = useStore()
 const isCreate: boolean = usePermission(props.pageName, 'create')
 const isUpdate: boolean = usePermission(props.pageName, 'update')
 const isDelete: boolean = usePermission(props.pageName, 'delete')
-const isQuery: boolean = usePermission(props.pageName, 'query')
+// const isQuery: boolean = usePermission(props.pageName, 'query')
 // 1.双向绑定pageInfo
-const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+const pageInfo = ref({ currentPage: 1, pageSize: 10 })
 watch(pageInfo, () => getPageData())
 // 2.发送网络请求
 const getPageData = (queryInfo: any = {}) => {
   // console.log(queryInfo)
-  if (!isQuery) return
+  // if (!isQuery) return
   store.dispatch('system/getPageListAction', {
     pageName: props.pageName,
     queryInfo: {
-      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+      offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
       size: pageInfo.value.pageSize,
       ...queryInfo
     }
