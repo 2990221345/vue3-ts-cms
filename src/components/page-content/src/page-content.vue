@@ -61,6 +61,8 @@ const props = defineProps({
 })
 
 const store = useStore()
+// 0.权限按钮管理
+
 // 1.双向绑定pageInfo
 const pageInfo = ref({ currentPage: 0, pageSize: 10 })
 watch(pageInfo, () => getPageData())
