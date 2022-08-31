@@ -9,7 +9,7 @@
     >
       <!-- hander中插槽 -->
       <template #headerHandler>
-        <el-button type="primary">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary">新建用户</el-button>
       </template>
       <!--  -->
       <template #createAt="scope">
@@ -20,10 +20,18 @@
       </template>
       <template #handler="scope">
         <div class="handle-btns">
-          <el-button size="small" @click="editBtn(scope.row.id)" icon="Edit"
+          <el-button
+            size="small"
+            v-if="isUpdate"
+            @click="editBtn(scope.row.id)"
+            icon="Edit"
             >编辑</el-button
           >
-          <el-button size="small" @click="deleteBtn(scope.row.id)" icon="Delete"
+          <el-button
+            size="small"
+            v-if="isDelete"
+            @click="deleteBtn(scope.row.id)"
+            icon="Delete"
             >删除</el-button
           >
         </div>
@@ -48,6 +56,7 @@ import { useStore } from 'vuex'
 
 import { ElMessageBox, ElMessage } from 'element-plus'
 import HyTable from '@/base-ui/table'
+import { usePermission } from '@/hooks/use-permission'
 
 const props = defineProps({
   contentTableConfig: {
@@ -61,14 +70,18 @@ const props = defineProps({
 })
 
 const store = useStore()
-// 0.权限按钮管理
-
+// 0.获取操作的权限按钮
+const isCreate: boolean = usePermission(props.pageName, 'create')
+const isUpdate: boolean = usePermission(props.pageName, 'update')
+const isDelete: boolean = usePermission(props.pageName, 'delete')
+const isQuery: boolean = usePermission(props.pageName, 'query')
 // 1.双向绑定pageInfo
 const pageInfo = ref({ currentPage: 0, pageSize: 10 })
 watch(pageInfo, () => getPageData())
 // 2.发送网络请求
 const getPageData = (queryInfo: any = {}) => {
   // console.log(queryInfo)
+  if (!isQuery) return
   store.dispatch('system/getPageListAction', {
     pageName: props.pageName,
     queryInfo: {

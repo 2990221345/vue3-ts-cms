@@ -71,7 +71,7 @@ export function pathMapToMenu(
   }
 }
 
-export function mapMenusToPermission(userMenus: any[]) {
+export function mapMenusToPermission(userMenus: any[]): any[] {
   const permissions: string[] = []
   // 递归遍历
   const _recurseGetpermission = (menus: any[]) => {

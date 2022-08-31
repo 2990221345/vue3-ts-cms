@@ -53,7 +53,6 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 获取用户按钮权限
       const permissions = mapMenusToPermission(userMenus)
       state.permissions = permissions
-      console.log('permissions', permissions)
     }
   },
   actions: {
