@@ -74,6 +74,7 @@ const store = useStore()
 const isCreate: boolean = usePermission(props.pageName, 'create')
 const isUpdate: boolean = usePermission(props.pageName, 'update')
 const isDelete: boolean = usePermission(props.pageName, 'delete')
+// isQuery会导致无法查询数据
 // const isQuery: boolean = usePermission(props.pageName, 'query')
 // 1.双向绑定pageInfo
 const pageInfo = ref({ currentPage: 1, pageSize: 10 })
