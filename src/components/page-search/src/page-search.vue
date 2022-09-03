@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, watch, defineProps, defineEmits } from 'vue'
 import HyForm from '@/base-ui/form'
 const props = defineProps({
   SearchFromConfig: {
@@ -33,13 +33,15 @@ for (const item of formItems) {
   formOriginData[item.field] = ''
 }
 const formData = ref({ ...formOriginData })
-
+watch(formData, (newVal: any) => {
+  console.log(newVal)
+})
 // 重置
 const handleResetClick = () => {
-  // for (const key in formOriginData) {
-  //   formData.value[`${key}`] = formOriginData[key]
-  // }
-  formData.value = formOriginData
+  for (const key in formOriginData) {
+    formData.value[`${key}`] = formOriginData[key]
+  }
+  // formData.value = formOriginData
   emit('resetBtnClick')
 }
 

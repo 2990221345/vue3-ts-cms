@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { usePageSearch } from '@/hooks/usePageSearch'
 import { usePageModal } from '@/hooks/use-pageModal'

@@ -8,47 +8,75 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <!-- <el-col :span="8"> -->
-            <template v-if="!item.isHidden">
-              <el-form-item
-                v-if="!item.isHidden"
-                :label="item.label"
-                :style="itemStyle"
+            <el-form-item
+              v-if="!item.isHidden"
+              :label="item.label"
+              :style="itemStyle"
+            >
+              <template
+                v-if="item.type === 'input' || item.type === 'password'"
               >
-                <template
-                  v-if="item.type === 'input' || item.type === 'password'"
+                <!-- <el-input
+                  style="width: 100%"
+                  :placeholder="item.placeholder"
+                  :show-password="item.type === 'password'"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
+                ></el-input> -->
+                <el-input
+                  style="width: 100%"
+                  :placeholder="item.placeholder"
+                  :show-password="item.type === 'password'"
+                  v-model="formData[`${item.field}`]"
+                ></el-input>
+              </template>
+              <template v-else-if="item.type === 'select'">
+                <!-- <el-select
+                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                  @model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 >
-                  <el-input
-                    style="width: 100%"
-                    :placeholder="item.placeholder"
-                    :show-password="item.type === 'password'"
-                    :model-value="modelValue[`${item.field}`]"
-                    @update:modelValue="handleValueChange($event, item.field)"
-                  ></el-input>
-                </template>
-                <template v-else-if="item.type === 'select'">
-                  <el-select
-                    :placeholder="item.placeholder"
-                    style="width: 100%"
-                    @model-value="modelValue[`${item.field}`]"
+                  <el-option
+                    v-for="option in item.options"
+                    :key="option.title"
+                    :value="option.value"
+                    >{{ option.title }}</el-option
                   >
-                    <el-option
-                      v-for="option in item.options"
-                      :key="option.title"
-                      :value="option.value"
-                      >{{ option.title }}</el-option
-                    >
-                  </el-select>
-                </template>
-                <template v-else-if="item.type === 'datepicker'">
-                  <el-date-picker
-                    @model-value="modelValue[`${item.field}`]"
-                    v-bind="item.otherOptions"
-                    :placeholder="item.placeholder"
-                  >
-                  </el-date-picker>
-                </template>
-              </el-form-item>
-            </template>
+                </el-select> -->
+                <el-select
+                  clearable
+                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                  v-model="formData[`${item.field}`]"
+                >
+                  <el-option
+                    v-for="option in item.options"
+                    :key="option.title"
+                    :label="option.title"
+                    :value="option.value"
+                  ></el-option>
+                </el-select>
+              </template>
+              <template v-else-if="item.type === 'datepicker'">
+                <!-- <el-date-picker
+                  style="width: 100%"
+                  @model-value="modelValue[`${item.field}`]"
+                  v-bind="item.otherOptions"
+                  :placeholder="item.placeholder"
+                  @update:modelValue="handleValueChange($event, item.field)"
+                >
+                </el-date-picker> -->
+                <el-date-picker
+                  clearable
+                  style="width: 100%"
+                  v-model="formData[`${item.field}`]"
+                  v-bind="item.otherOptions"
+                  :placeholder="item.placeholder"
+                >
+                </el-date-picker>
+              </template>
+            </el-form-item>
           </el-col>
         </template>
       </el-row>
@@ -60,8 +88,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, defineEmits } from 'vue'
+import { defineProps, PropType, defineEmits, ref, watch } from 'vue'
 import { IFormItem } from '../types/index'
+
 const props = defineProps({
   // 父组件使用v-model 绑定的是modelValue的值
   modelValue: {
@@ -95,23 +124,26 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 // 这里使用浅拷贝 父组件的数据 通过watch监听emit派发
-// const formData = ref({ ...props.modelValue })
+const formData = ref({ ...props.modelValue })
 
-// watch(
-//   formData,
-//   (newValue) => {
-//     // console.log(newValue)
-//     emit('update:modelValue', newValue)
-//   },
-//   {
-//     deep: true
-//   }
-// )
+watch(
+  formData,
+  (newValue) => {
+    console.log(newValue)
+    emit('update:modelValue', newValue)
+  },
+  {
+    deep: true
+  }
+)
 
 // 事件触发
-const handleValueChange = (value: any, field: string) => {
-  emit('update:modelValue', { ...props.modelValue, [field]: value })
-}
+// const handleValueChange = (value: any, field: string) => {
+//   console.log('value', value)
+//   console.log('field', field)
+//   console.log(props.modelValue)
+//   emit('update:modelValue', { ...props.modelValue, [field]: value })
+// }
 </script>
 
 <style lang="less" scoped>
