@@ -25,14 +25,14 @@
     <!-- dialog -->
     <PageModal
       ref="pageModalRef"
-      :modalConfig="modalConfig"
+      :modalConfig="modalConfigRef"
       :defaultInfo="defaultInfo"
     ></PageModal>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { usePageSearch } from '@/hooks/usePageSearch'
 import { usePageModal } from '@/hooks/use-pageModal'
@@ -52,10 +52,26 @@ store.dispatch('system/getPageListAction', {
     size: 10
   }
 })
-
+const modalConfigRef: any = ref(modalConfig)
+// pageModal相关的hook逻辑
+const newCallback = () => {
+  const passwordItem = modalConfigRef.value.formItems.find(
+    (item: any) => item.field === 'password'
+  )
+  passwordItem!.isHidden = false
+}
+const editCallback = () => {
+  const passwordItem = modalConfigRef.value.formItems.find(
+    (item: any) => item.field === 'password'
+  )
+  passwordItem!.isHidden = true
+}
 // 执行hook
 const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
-const [pageModalRef, defaultInfo, hanleNewData, hanleEditData] = usePageModal()
+const [pageModalRef, defaultInfo, hanleNewData, hanleEditData] = usePageModal(
+  newCallback,
+  editCallback
+)
 </script>
 
 <style lang="less" scoped></style>

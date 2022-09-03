@@ -8,41 +8,48 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <!-- <el-col :span="8"> -->
-            <el-form-item :label="item.label" :style="itemStyle">
-              <template
-                v-if="item.type === 'input' || item.type === 'password'"
+            <template v-if="!item.isHidden">
+              <el-form-item
+                v-if="!item.isHidden"
+                :label="item.label"
+                :style="itemStyle"
               >
-                <el-input
-                  style="width: 100%"
-                  :placeholder="item.placeholder"
-                  :show-password="item.type === 'password'"
-                  :model-value="modelValue[`${item.field}`]"
-                  @update:modelValue="handleValueChange($event, item.field)"
-                ></el-input>
-              </template>
-              <template v-else-if="item.type === 'select'">
-                <el-select
-                  :placeholder="item.placeholder"
-                  style="width: 100%"
-                  @model-value="modelValue[`${item.field}`]"
+                <template
+                  v-if="item.type === 'input' || item.type === 'password'"
                 >
-                  <el-option
-                    v-for="option in item.options"
-                    :key="option.title"
-                    :value="option.value"
-                    >{{ option.title }}</el-option
+                  <el-input
+                    style="width: 100%"
+                    :placeholder="item.placeholder"
+                    :show-password="item.type === 'password'"
+                    :model-value="modelValue[`${item.field}`]"
+                    @update:modelValue="handleValueChange($event, item.field)"
+                  ></el-input>
+                </template>
+                <template v-else-if="item.type === 'select'">
+                  <el-select
+                    :placeholder="item.placeholder"
+                    style="width: 100%"
+                    @model-value="modelValue[`${item.field}`]"
                   >
-                </el-select>
-              </template>
-              <template v-else-if="item.type === 'datepicker'">
-                <el-date-picker
-                  @model-value="modelValue[`${item.field}`]"
-                  v-bind="item.otherOptions"
-                  :placeholder="item.placeholder"
-                >
-                </el-date-picker>
-              </template> </el-form-item
-          ></el-col>
+                    <el-option
+                      v-for="option in item.options"
+                      :key="option.title"
+                      :value="option.value"
+                      >{{ option.title }}</el-option
+                    >
+                  </el-select>
+                </template>
+                <template v-else-if="item.type === 'datepicker'">
+                  <el-date-picker
+                    @model-value="modelValue[`${item.field}`]"
+                    v-bind="item.otherOptions"
+                    :placeholder="item.placeholder"
+                  >
+                  </el-date-picker>
+                </template>
+              </el-form-item>
+            </template>
+          </el-col>
         </template>
       </el-row>
     </el-form>
@@ -86,7 +93,6 @@ const props = defineProps({
     }
   }
 })
-
 const emit = defineEmits(['update:modelValue'])
 // 这里使用浅拷贝 父组件的数据 通过watch监听emit派发
 // const formData = ref({ ...props.modelValue })
