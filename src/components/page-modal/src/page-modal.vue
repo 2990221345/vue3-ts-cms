@@ -15,15 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, defineExpose } from 'vue'
 import HyForm from '@/base-ui/form'
-const DialogVisible = ref(true)
+const DialogVisible = ref(false)
 const formData = ref({})
 const props = defineProps({
   modalConfig: {
     type: Object,
     require: true
   }
+})
+defineExpose({
+  DialogVisible
 })
 </script>
 

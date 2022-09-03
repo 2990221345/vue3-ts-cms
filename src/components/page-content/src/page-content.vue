@@ -9,7 +9,9 @@
     >
       <!-- hander中插槽 -->
       <template #headerHandler>
-        <el-button v-if="isCreate" type="primary">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary" @click="handleNewClick"
+          >新建用户</el-button
+        >
       </template>
       <!--  -->
       <template #createAt="scope">
@@ -23,7 +25,7 @@
           <el-button
             size="small"
             v-if="isUpdate"
-            @click="editBtn(scope.row.id)"
+            @click="handleEditClick(scope.row.id)"
             icon="Edit"
             >编辑</el-button
           >
@@ -51,7 +53,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineExpose, computed, ref, watch } from 'vue'
+import {
+  defineProps,
+  defineExpose,
+  defineEmits,
+  computed,
+  ref,
+  watch
+} from 'vue'
 import { useStore } from 'vuex'
 
 import { ElMessageBox, ElMessage } from 'element-plus'
@@ -68,11 +77,13 @@ const props = defineProps({
     required: true
   }
 })
-
+const emit = defineEmits(['newBtnClick', 'editBtnClick'])
 const store = useStore()
 // 0.获取操作的权限按钮
-const isCreate: boolean = usePermission(props.pageName, 'create')
-const isUpdate: boolean = usePermission(props.pageName, 'update')
+// const isUpdate: boolean = usePermission(props.pageName, 'update')
+const isCreate = true
+const isUpdate = true
+// const isUpdate: boolean = usePermission(props.pageName, 'update')
 const isDelete: boolean = usePermission(props.pageName, 'delete')
 // isQuery会导致无法查询数据
 // const isQuery: boolean = usePermission(props.pageName, 'query')
@@ -120,9 +131,13 @@ const selectionChange = (val: any) => {
   const reslut = val.map((item: any) => item.id)
   console.log(reslut)
 }
+// 新建
+const handleNewClick = () => {
+  emit('newBtnClick')
+}
 // 编辑 删除
-const editBtn = (id: number) => {
-  console.log(id)
+const handleEditClick = (id: number) => {
+  emit('editBtnClick', id)
 }
 
 const deleteBtn = (id: number) => {

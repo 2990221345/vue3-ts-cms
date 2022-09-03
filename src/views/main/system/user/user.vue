@@ -6,6 +6,8 @@
       @queryBtnClick="handleQueryClick"
     ></PageSearch>
     <PageContent
+      @newBtnClick="hanleNewData"
+      @editBtnClick="hanleEditData"
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="user"
@@ -21,7 +23,7 @@
       </template>
     </PageContent>
     <!-- dialog -->
-    <PageModal :modalConfig="modalConfig"></PageModal>
+    <PageModal ref="pageModalRef" :modalConfig="modalConfig"></PageModal>
   </div>
 </template>
 
@@ -37,9 +39,6 @@ import { SearchFromConfig } from './config/serch.config'
 import { contentTableConfig } from './config/content.config'
 import { modalConfig } from './config/modal.config'
 
-const DialogVisible = ref(true)
-const formData = ref({})
-const handleClose = () => null
 const store = useStore()
 store.dispatch('system/getPageListAction', {
   pageName: 'user',
@@ -48,6 +47,14 @@ store.dispatch('system/getPageListAction', {
     size: 10
   }
 })
+const pageModalRef = ref<InstanceType<typeof PageModal>>()
+const hanleNewData = () => {
+  if (pageModalRef.value) pageModalRef.value.DialogVisible = true
+}
+const hanleEditData = (id: number) => {
+  if (pageModalRef.value) pageModalRef.value.DialogVisible = true
+  console.log(id)
+}
 // 执行hook
 const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 </script>
