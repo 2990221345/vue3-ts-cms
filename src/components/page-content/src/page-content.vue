@@ -25,7 +25,7 @@
           <el-button
             size="small"
             v-if="isUpdate"
-            @click="handleEditClick(scope.row.id)"
+            @click="handleEditClick(scope.row)"
             icon="Edit"
             >编辑</el-button
           >
@@ -136,8 +136,8 @@ const handleNewClick = () => {
   emit('newBtnClick')
 }
 // 编辑 删除
-const handleEditClick = (id: number) => {
-  emit('editBtnClick', id)
+const handleEditClick = (item: any) => {
+  emit('editBtnClick', item)
 }
 
 const deleteBtn = (id: number) => {

@@ -15,16 +15,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineExpose } from 'vue'
+import { ref, defineProps, defineExpose, watch } from 'vue'
 import HyForm from '@/base-ui/form'
 const DialogVisible = ref(false)
-const formData = ref({})
+const formData = ref<any>({})
 const props = defineProps({
   modalConfig: {
     type: Object,
     require: true
+  },
+  defaultInfo: {
+    type: Object,
+    default: () => ({})
   }
 })
+watch(
+  () => props.defaultInfo,
+  (newVal) => {
+    for (const item of props?.modalConfig?.formItems) {
+      formData.value[`${item.field}`] = newVal[`${item.field}`]
+    }
+  }
+)
 defineExpose({
   DialogVisible
 })

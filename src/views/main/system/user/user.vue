@@ -23,7 +23,11 @@
       </template>
     </PageContent>
     <!-- dialog -->
-    <PageModal ref="pageModalRef" :modalConfig="modalConfig"></PageModal>
+    <PageModal
+      ref="pageModalRef"
+      :modalConfig="modalConfig"
+      :defaultInfo="defaultInfo"
+    ></PageModal>
   </div>
 </template>
 
@@ -31,6 +35,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { usePageSearch } from '@/hooks/usePageSearch'
+import { usePageModal } from '@/hooks/use-pageModal'
 // 页面配置
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -47,16 +52,10 @@ store.dispatch('system/getPageListAction', {
     size: 10
   }
 })
-const pageModalRef = ref<InstanceType<typeof PageModal>>()
-const hanleNewData = () => {
-  if (pageModalRef.value) pageModalRef.value.DialogVisible = true
-}
-const hanleEditData = (id: number) => {
-  if (pageModalRef.value) pageModalRef.value.DialogVisible = true
-  console.log(id)
-}
+
 // 执行hook
 const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
+const [pageModalRef, defaultInfo, hanleNewData, hanleEditData] = usePageModal()
 </script>
 
 <style lang="less" scoped></style>
