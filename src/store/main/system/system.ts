@@ -2,7 +2,7 @@ import { Module } from 'vuex'
 import { IRootState } from '@/store/type'
 import { ISystemState } from './types'
 
-import { getPageListData } from '@/service/main/system/system'
+import { deletePageData, getPageListData } from '@/service/main/system/system'
 import utils from '@/utils/utils'
 const systemModule: Module<ISystemState, IRootState> = {
   // 模块化给个命名空间 true
@@ -79,6 +79,20 @@ const systemModule: Module<ISystemState, IRootState> = {
       // console.log(utils.titleCase(payload.pageName))
       commit(`change${utils.titleCase(payload.pageName)}List`, list)
       commit(`change${utils.titleCase(payload.pageName)}Count`, totalCount)
+    },
+    async deletePageDataAction({ dispatch }, payload: any) {
+      const { pageName, id } = payload
+      const PageUrl = `/${pageName}/${id}`
+      // 发送删除请求
+      await deletePageData(PageUrl)
+      // 删除后重新请求菜单数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
     }
   }
 }

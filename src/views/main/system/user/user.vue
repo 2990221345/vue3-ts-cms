@@ -20,14 +20,8 @@
         >
       </template>
     </PageContent>
-    <div class="content">
-      <!-- :title="title"
-        :propList="propList"
-        :showIndexColumn="showIndexColumn"
-        :showSelectColumn="showSelectColumn" -->
-      <!--
-      <el-pagination layout="prev, pager, next" :total="userCount" /> -->
-    </div>
+    <!-- dialog -->
+    <PageModal :modalConfig="modalConfig"></PageModal>
   </div>
 </template>
 
@@ -38,9 +32,14 @@ import { usePageSearch } from '@/hooks/usePageSearch'
 // 页面配置
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
+import PageModal from '@/components/page-modal'
 import { SearchFromConfig } from './config/serch.config'
 import { contentTableConfig } from './config/content.config'
+import { modalConfig } from './config/modal.config'
 
+const DialogVisible = ref(true)
+const formData = ref({})
+const handleClose = () => null
 const store = useStore()
 store.dispatch('system/getPageListAction', {
   pageName: 'user',

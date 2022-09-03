@@ -133,10 +133,14 @@ const deleteBtn = (id: number) => {
     type: 'warning'
   })
     .then(() => {
-      ElMessage({
-        type: 'success',
-        message: 'Delete completed'
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: id
       })
+      // ElMessage({
+      //   type: 'success',
+      //   message: 'Delete completed'
+      // })
     })
     .catch(() => {
       ElMessage({
