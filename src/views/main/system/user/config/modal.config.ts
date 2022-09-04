@@ -36,6 +36,14 @@ export const modalConfig = {
       rules: [],
       options: [],
       placeholder: '请选择部门'
+    },
+    {
+      field: 'roleId',
+      type: 'select',
+      label: '角色',
+      rules: [],
+      options: [],
+      placeholder: '请选择角色'
     }
   ],
   colLayout: {

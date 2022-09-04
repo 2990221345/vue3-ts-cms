@@ -32,8 +32,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import store from '@/store'
+import { ref, computed, watch } from 'vue'
+// import store from '@/store'
+import { useStore } from '@/store'
 import { usePageSearch } from '@/hooks/usePageSearch'
 import { usePageModal } from '@/hooks/use-pageModal'
 // 页面配置
@@ -43,7 +44,7 @@ import PageModal from '@/components/page-modal'
 import { SearchFromConfig } from './config/serch.config'
 import { contentTableConfig } from './config/content.config'
 import { modalConfig } from './config/modal.config'
-
+const store = useStore()
 store.dispatch('system/getPageListAction', {
   pageName: 'user',
   queryInfo: {
@@ -51,33 +52,47 @@ store.dispatch('system/getPageListAction', {
     size: 10
   }
 })
-const modalConfigRef: any = ref(modalConfig)
-// pageModal相关的hook逻辑
+console.log('store.state.entireDepartment', store.state.entireDepartment)
+const modalConfigRef: any = computed(() => {
+  console.log(1)
+  // 动态添加部门和角色列表
+  const departmentItem: any = modalConfig.formItems.find(
+    (item: any) => item.field === 'departmentId'
+  )
+  departmentItem!.options = store.state?.entireDepartment.map((item) => {
+    return {
+      value: item.id,
+      title: item.name
+    }
+  })
+  const roleItem: any = modalConfig.formItems.find(
+    (item: any) => item.field === 'roleId'
+  )
+  roleItem!.options = store.state?.entireRole.map((item) => {
+    return { title: item.name, value: item.id }
+  })
+  return modalConfig
+})
+
+// const modalConfigRef = ref(modalConfigTemp)
+// console.log(modalConfigRef)
+// 处理密码逻辑
 const newCallback = () => {
+  console.log(123)
   const passwordItem = modalConfigRef.value.formItems.find(
     (item: any) => item.field === 'password'
   )
   passwordItem!.isHidden = false
+  console.log(passwordItem.isHidden)
 }
 const editCallback = () => {
+  console.log(456)
   const passwordItem = modalConfigRef.value.formItems.find(
     (item: any) => item.field === 'password'
   )
   passwordItem!.isHidden = true
+  console.log(passwordItem.isHidden)
 }
-// 动态添加部门和角色列表
-const departmentItem = modalConfigRef.value.formItems.find(
-  (item: any) => item.field === 'departmentId'
-)
-console.log('departmentItem', departmentItem, departmentItem.options)
-departmentItem!.options = store.state?.entireDepartment.map((item) => {
-  return {
-    value: item.id,
-    title: item.name
-  }
-})
-console.log(departmentItem.options)
-
 // 调用hook获取公共变量和函数
 const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 const [pageModalRef, defaultInfo, hanleNewData, hanleEditData] = usePageModal(

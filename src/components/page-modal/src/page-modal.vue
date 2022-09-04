@@ -34,6 +34,8 @@ watch(
   (newVal) => {
     for (const item of props?.modalConfig?.formItems) {
       formData.value[`${item.field}`] = newVal[`${item.field}`]
+        ? newVal[`${item.field}`]
+        : ''
     }
   }
 )
