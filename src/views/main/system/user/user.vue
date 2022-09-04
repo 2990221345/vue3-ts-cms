@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
+import store from '@/store'
 import { usePageSearch } from '@/hooks/usePageSearch'
 import { usePageModal } from '@/hooks/use-pageModal'
 // 页面配置
@@ -44,7 +44,6 @@ import { SearchFromConfig } from './config/serch.config'
 import { contentTableConfig } from './config/content.config'
 import { modalConfig } from './config/modal.config'
 
-const store = useStore()
 store.dispatch('system/getPageListAction', {
   pageName: 'user',
   queryInfo: {
@@ -66,7 +65,20 @@ const editCallback = () => {
   )
   passwordItem!.isHidden = true
 }
-// 执行hook
+// 动态添加部门和角色列表
+const departmentItem = modalConfigRef.value.formItems.find(
+  (item: any) => item.field === 'departmentId'
+)
+console.log('departmentItem', departmentItem, departmentItem.options)
+departmentItem!.options = store.state?.entireDepartment.map((item) => {
+  return {
+    value: item.id,
+    title: item.name
+  }
+})
+console.log(departmentItem.options)
+
+// 调用hook获取公共变量和函数
 const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 const [pageModalRef, defaultInfo, hanleNewData, hanleEditData] = usePageModal(
   newCallback,

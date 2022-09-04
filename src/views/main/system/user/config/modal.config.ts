@@ -28,6 +28,14 @@ export const modalConfig = {
       label: '电话号码',
       rules: [],
       placeholder: '请输入电话号码'
+    },
+    {
+      field: 'departmentId',
+      type: 'select',
+      label: '部门',
+      rules: [],
+      options: [],
+      placeholder: '请选择部门'
     }
   ],
   colLayout: {
