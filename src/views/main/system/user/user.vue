@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
+import { computed } from 'vue'
 // import store from '@/store'
 import { useStore } from '@/store'
 import { usePageSearch } from '@/hooks/usePageSearch'
