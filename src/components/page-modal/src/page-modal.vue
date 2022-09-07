@@ -46,11 +46,12 @@ const handleConfirmClick = () => {
   DialogVisible.value = false
   if (Object.keys(props.defaultInfo).length) {
     // 编辑
-    store.dispatch('ststem/editPageDataAction', {
+    store.dispatch('system/editPageDataAction', {
       pageName: props.pageName,
       editData: { ...formData.value },
       id: props.defaultInfo.id
     })
+    console.log('编辑')
   } else {
     // 新增
     store.dispatch('system/createPageDataAction', {
@@ -60,8 +61,7 @@ const handleConfirmClick = () => {
   }
 }
 defineExpose({
-  DialogVisible,
-  handleConfirmClick
+  DialogVisible
 })
 </script>
 
