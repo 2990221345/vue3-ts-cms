@@ -24,7 +24,9 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="CircleClose">退出登陆</el-dropdown-item>
+          <el-dropdown-item icon="CircleClose" @click="handleExitClick"
+            >退出登陆</el-dropdown-item
+          >
           <el-dropdown-item icon="InfoFilled">用户信息</el-dropdown-item>
           <el-dropdown-item icon="Lock">系统管理</el-dropdown-item>
         </el-dropdown-menu>
@@ -36,8 +38,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import LocalCache from '@/utils/cache'
+import { useRouter } from 'vue-router'
 const store = useStore()
+const router = useRouter()
 const username = computed(() => store.state.login.userInfo.name)
+const handleExitClick = () => {
+  LocalCache.deleteCache('token')
+  router.push('/main')
+}
 </script>
 
 <style lang="less" scoped>
