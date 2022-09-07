@@ -25,6 +25,7 @@
     <!-- dialog -->
     <PageModal
       ref="pageModalRef"
+      pageName="user"
       :modalConfig="modalConfigRef"
       :defaultInfo="defaultInfo"
     ></PageModal>

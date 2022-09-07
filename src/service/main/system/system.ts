@@ -12,3 +12,17 @@ export function deletePageData(url: string) {
     url
   })
 }
+
+export function createPageData(url: string, newData: any) {
+  return hyRequest.post<IDataType>({
+    url,
+    data: newData
+  })
+}
+
+export function editPageData(url: string, editData: any) {
+  return hyRequest.post<IDataType>({
+    url,
+    data: editData
+  })
+}
