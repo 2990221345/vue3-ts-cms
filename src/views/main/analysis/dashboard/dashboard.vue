@@ -1,60 +1,79 @@
 <template>
   <div class="dashboard">
-    <el-row>
-      <el-col :span="7">1</el-col>
-      <el-col :span="10">2</el-col>
-      <el-col :span="7">3</el-col>
+    <el-row :gutter="10">
+      <el-col :span="7">
+        <card title="分类商品数量（饼图）">
+          <pie-echart :pieData="categoryGoodsCount"></pie-echart>
+          <!-- <baseEchart :option="pieOptions"></baseEchart> -->
+        </card>
+      </el-col>
+      <el-col :span="10">
+        <card title="不同城市商品销量"></card>
+      </el-col>
+      <el-col :span="7">
+        <card title="分类商品数量（玫瑰图）"></card>
+      </el-col>
     </el-row>
-    <div ref="divRef" :style="{ width: '600px', height: '500px' }"></div>
+    <el-row :gutter="10" class="content-row">
+      <el-col :span="12">
+        <card title="分类商品的销量">
+          <baseEchart :option="option"></baseEchart>
+        </card>
+      </el-col>
+      <el-col :span="12">
+        <card title="分类商品的收藏"></card>
+      </el-col>
+    </el-row>
+    <div
+      v-show="false"
+      ref="divRef"
+      :style="{ width: '600px', height: '500px' }"
+    ></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useStore } from '@/store'
-import * as echarts from 'echarts'
-// 基于准备好的dom，初始化echarts实例
-const divRef = ref<HTMLElement>()
-onMounted(() => {
-  // nextTick(() => {
-  const echartInstance = echarts.init(divRef.value!, {
-    renderer: 'svg'
-  })
-  // 绘制图表
-  const options = {
-    title: {
-      text: 'ECharts 入门示例'
-      // subtext: '哈哈哈啊'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross'
+import card from '@/base-ui/card'
+import baseEchart from '@/base-ui/echart'
+import { PieEchart } from '@/components/page-echarts/index'
+//
+const option = {
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [120, 210, 150, 80, 70, 110, 130],
+      type: 'bar',
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(180, 180, 180, 0.2)'
       }
-    },
-    legend: {
-      data: ['销量']
-    },
-    xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-    },
-    yAxis: {},
-    series: [
-      {
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-      }
-    ]
-  }
-  echartInstance.setOption(options)
-})
-
+    }
+  ]
+}
 const store = useStore()
 store.dispatch('dashboard/getDashboardDataAction')
+const categoryGoodsCount = computed(() =>
+  store.state.dashboard.categoryGoodCount.map((item: any) => {
+    return {
+      name: item.name,
+      value: item.goodsCount
+    }
+  })
+)
 </script>
 
 <style lang="less" scoped>
 .dashboard {
+  .content-row {
+    margin-top: 20px;
+  }
 }
 </style>
