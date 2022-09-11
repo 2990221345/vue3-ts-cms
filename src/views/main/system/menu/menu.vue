@@ -24,7 +24,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { usePageSearch } from '@/hooks/usePageSearch'
 // 页面配置

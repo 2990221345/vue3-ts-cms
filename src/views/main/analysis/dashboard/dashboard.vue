@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div class="dashboard">
+    <el-row>
+      <el-col :span="7">1</el-col>
+      <el-col :span="10">2</el-col>
+      <el-col :span="7">3</el-col>
+    </el-row>
     <div ref="divRef" :style="{ width: '600px', height: '500px' }"></div>
   </div>
 </template>
@@ -49,4 +54,7 @@ const store = useStore()
 store.dispatch('dashboard/getDashboardDataAction')
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.dashboard {
+}
+</style>
