@@ -5,9 +5,11 @@ import { golbalRegisterApp } from '@/global'
 // css 样式重置
 import 'normalize.css'
 import '@/assets/css/index.css'
+
 import rootApp from './App.vue'
 import router from '@/router/index'
 import 'element-plus/dist/index.css' //引用全局样式表
+import 'default-passive-events' //解决echart报错
 import store from '@/store'
 import { setupStore } from '@/store' //页面刷新时 重新读取localStoreage
 const app = createApp(rootApp)
