@@ -1,40 +1,52 @@
 <template>
   <div>
-    <div ref="divRef" :style="{ width: '300px', height: '200px' }"></div>
+    <div ref="divRef" :style="{ width: '600px', height: '500px' }"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useStore } from '@/store'
 import * as echarts from 'echarts'
 // 基于准备好的dom，初始化echarts实例
 const divRef = ref<HTMLElement>()
 onMounted(() => {
   // nextTick(() => {
-  const echartInstance = echarts.init(divRef.value!)
+  const echartInstance = echarts.init(divRef.value!, {
+    renderer: 'svg'
+  })
   // 绘制图表
   const options = {
+    title: {
+      text: 'ECharts 入门示例'
+      // subtext: '哈哈哈啊'
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross'
+      }
+    },
+    legend: {
+      data: ['销量']
+    },
     xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
     },
-    yAxis: {
-      type: 'value'
-    },
+    yAxis: {},
     series: [
       {
-        data: [120, 200, 150, 80, 70, 110, 130],
+        name: '销量',
         type: 'bar',
-        showBackground: true,
-        backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)'
-        }
+        data: [5, 20, 36, 10, 10, 20]
       }
     ]
   }
   echartInstance.setOption(options)
-  // })
 })
+
+const store = useStore()
+store.dispatch('dashboard/getDashboardDataAction')
 </script>
 
 <style lang="less" scoped></style>
