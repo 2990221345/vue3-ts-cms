@@ -28,7 +28,8 @@
       pageName="user"
       :modalConfig="modalConfigRef"
       :defaultInfo="defaultInfo"
-    ></PageModal>
+    >
+    </PageModal>
   </div>
 </template>
 

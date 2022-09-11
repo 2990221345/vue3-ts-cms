@@ -2,6 +2,7 @@
   <div class="page-modal">
     <el-dialog v-model="DialogVisible" title="新建用户" width="30%" center>
       <HyForm v-bind="modalConfig" v-model="formData"></HyForm>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="DialogVisible = false">取消</el-button>
