@@ -9,6 +9,7 @@ ESLint
 Vue VSCode Snippets
 Vue Language Features (Volar)
 Git History Diff
+Remote - SSH
 ```
 
 ### git commit standard

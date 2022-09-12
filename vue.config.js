@@ -4,8 +4,8 @@ const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 const path = require('path')
 module.exports = {
-  publicPath: './',
-  outputDir: 'docs',
+  // publicPath: './',
+  outputDir: 'dist',
   productionSourceMap: false,
   devServer: {
     proxy: {
